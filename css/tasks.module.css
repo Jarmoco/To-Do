@@ -1,3 +1,97 @@
+.taskTitle {
+    font-size: 3.5vh;
+}
+
 .taskDescription {
+    font-size: 2.5vh;
     font-weight: 300;
+}
+
+.task {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.taskContainer {
+    width: 35vw;
+    height: 20vw;
+    padding: 1%;
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(24, 14, 37, 0.8);
+    border-radius: 20px;
+    margin-top: 10%;
+    box-shadow: 2px -18px 48px 9px rgba(59, 45, 79, 0.7) inset;
+}
+
+/* Customize the label (the container) */
+.checkboxContainer {
+    display: block;
+    position: relative;
+    margin-right: 1vw;
+    margin-bottom: 4vh;
+    cursor: pointer;
+    font-size: 22px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+/* Hide the browser's default checkbox */
+.checkboxContainer input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: calc((2vw + 3vh) /2);
+    width: calc((2vw + 3vh) /2);
+    border-radius: 50%;
+    background-color: rgba(29, 15, 36, 0.3);
+    border: 0.5vh solid #433749;
+}
+
+/* On mouse-over, add a lighter background color */
+.checkboxContainer:hover input~.checkmark {
+    background-color: rgba(57, 37, 68, 0.1);
+}
+
+/* When the checkbox is checked, add a green gradient background */
+.checkboxContainer input:checked~.checkmark {
+    background: linear-gradient(56deg, #CFFF11 0%, #23B04B 100%);
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+/* Show the checkmark when checked */
+.checkboxContainer input:checked~.checkmark:after {
+    display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkboxContainer .checkmark:after {
+    left: 0.55vw;
+    top: 0.55vh;
+    width: calc((0.5vw + 1vh) /2);
+    height: calc((1vw + 1vh) /2);
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
 }

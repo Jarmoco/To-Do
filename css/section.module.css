@@ -1,0 +1,11 @@
+.section {
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: center;
+}
+
+.sectionTitle {
+    font-size: 7vh;
+    font-weight: 500;
+}
