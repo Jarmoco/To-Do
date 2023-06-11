@@ -1,36 +1,73 @@
 .taskTitle {
     font-size: 3.5vh;
+    width: 28%;
 }
 
 .taskDescription {
+    width: 45%;
     font-size: 2.5vh;
     font-weight: 300;
+    white-space: initial;
+    word-wrap: break-word;
 }
 
+/* Single task element, example: [] Subject page 12 n 23-35*/
 .task {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: flex-start;
     align-items: center;
 }
 
+.task h2,
+.task h3,
+.task label {
+    margin-right: 2vw;
+    margin-left: 2vw;
+}
+
 .taskContainer {
-    width: 35vw;
-    height: 20vw;
+    width: auto;
+    height: auto;
+    max-width: 50%;
+    max-height: 45vh;
     padding: 1%;
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
     background-color: rgba(24, 14, 37, 0.8);
     border-radius: 20px;
-    margin-top: 10%;
+    margin-top: 8%;
     box-shadow: 2px -18px 48px 9px rgba(59, 45, 79, 0.7) inset;
+    overflow-y: scroll;
+}
+
+/* width */
+.taskContainer::-webkit-scrollbar {
+    width: 0.6vw;
+}
+
+/* Track */
+.taskContainer::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* Handle */
+.taskContainer::-webkit-scrollbar-thumb {
+    background: #2c1c3f;
+    border-radius: 8px;
+    border: 0.2vw solid rgba(59, 45, 79, 0.7);
+}
+
+/* Handle on hover */
+.taskContainer::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
 
 /* Customize the label (the container) */
 .checkboxContainer {
     display: block;
     position: relative;
-    margin-right: 1vw;
+    margin-right: 7%;
     margin-bottom: 4vh;
     cursor: pointer;
     font-size: 22px;
@@ -69,6 +106,7 @@
 /* When the checkbox is checked, add a green gradient background */
 .checkboxContainer input:checked~.checkmark {
     background: linear-gradient(56deg, #CFFF11 0%, #23B04B 100%);
+    border: 0.5vh solid #7cd92d;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */

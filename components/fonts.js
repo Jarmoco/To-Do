@@ -1,4 +1,4 @@
-import { Inter, Rubik } from '@next/font/google';
+import { Inter, Rubik } from 'next/font/google';
 
 export const titleFont = Rubik({
     subsets: ['latin'],

@@ -1,3 +1,5 @@
+/* This is the main page file */
+
 import Title from "@/components/sectionTitle"
 import TaskContainer from "@/components/tasks"
 
@@ -16,14 +18,15 @@ export default function Page() {
 function Section() {
     return (
         <div className={style.section}>
-            <Blob color="#D83BDB" posX="26%" posY="23%" size="20vw"/>
-            <Blob color="#6E3BDB" posX="54%" posY="49%" size="20vw"/>
+            <Blob color="#D83BDB" posX="23vw" posY="23%" size="20vw"/>
+            <Blob color="#6E3BDB" posX="56vw" posY="49%" size="20vw"/>
             <Title title="Benvenuto" />
             <TaskContainer />
         </div>
     )
 }
 
+// Background colored light blobs
 function Blob({ color, posX, posY, size }) {
     return (
         <>

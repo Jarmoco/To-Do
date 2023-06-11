@@ -8,6 +8,11 @@ export default function TaskContainer() {
     return (
         <div className={style.taskContainer}>
             <Task title={"Matematica"} description={"pag 22 n 12-33"} />
+            <Task title={"Arte"} description={"pag 22 n 12-33, 22, 44, 553, 44"} />
+            <Task title={"Fisica"} description={"pag 22 n 12-3 sdas sad3"} />
+            <Task title={"Scienze"} description={"pdsadg 22 n 12-33"} />
+            <Task title={"Storia"} description={"pag 22  dasdasdn 12-33"} />
+            <Task title={"Filosofia"} description={"pwewerwerag 22 an 12-33"} />
         </div>
     )
 }
@@ -22,6 +27,7 @@ function Task({ title, description }) {
     )
 }
 
+// Custom checkbox component
 function CheckBox() {
     return (
         <>
