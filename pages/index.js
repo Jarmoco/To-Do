@@ -1,16 +1,22 @@
 /* This is the main page file */
-
 import Title from "@/components/sectionTitle"
 import TaskContainer from "@/components/tasks"
 
 //import style from section module 
 import style from "../css/section.module.css"
 
+// UseEffect is used to disable ssr
+import { useEffect } from 'react'
+import { invoke } from "@tauri-apps/api/tauri"
+
 //------------------------------------------//
 export default function Page() {
+    useEffect(() => {
+        invoke('greet')
+      }, [])
     return (
         <>
-            <Section />
+            <Section/>
         </>
     )
 }
