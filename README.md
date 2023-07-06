@@ -6,6 +6,8 @@ You can find the next.js only webpage at [http://localhost:3000](http://localhos
 
 ## Building
 Run cargo tauri build to build the app
+or
+npm run tauri dev
 
 
 
