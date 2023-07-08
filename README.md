@@ -9,5 +9,10 @@ Run cargo tauri build to build the app
 or
 npm run tauri dev
 
+## Some notes
+
+### The .taurignore file
+it excludes the specified files and folders inside from build
+
 
 

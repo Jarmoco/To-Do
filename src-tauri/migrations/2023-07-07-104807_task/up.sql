@@ -1,0 +1,9 @@
+CREATE TABLE task (
+    id INTEGER NOT NULL,
+	title CHAR NOT NULL DEFAULT '',
+	content VARCHAR DEFAULT NULL,
+    author CHAR NOT NULL,
+	expiry DATE DEFAULT NULL,
+	is_done BOOLEAN NOT NULL DEFAULT '',
+    CONSTRAINT task_pk PRIMARY KEY (id)
+);
