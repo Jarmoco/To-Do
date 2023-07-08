@@ -1,4 +1,4 @@
-use crate::models::NewTask;
+use crate::models::{NewTask, Task};
 use crate::db::establish_connection;
 use diesel::RunQueryDsl;
 use diesel::result::Error;
@@ -11,7 +11,7 @@ pub fn insert_task(
     d: bool,
 ) -> Result<usize, Error> {
 
-    use crate::schema::task::dsl::*;
+    use crate::schema::tasks::dsl::*;
 
     let mut connection = establish_connection();
     let new_task = NewTask {
@@ -22,7 +22,17 @@ pub fn insert_task(
         is_done: d,
     };
 
-    diesel::insert_into(task)
+    diesel::insert_into(tasks)
         .values(&new_task)
         .execute(&mut connection)
+}
+
+
+pub fn get_tasks() -> Result<Vec<Task>, Error> {
+    use crate::schema::tasks::dsl::*;
+
+    let mut connection = establish_connection();
+
+    let results = tasks.load::<Task>(&mut connection)?;
+    Ok(results)
 }
