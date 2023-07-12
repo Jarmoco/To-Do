@@ -7,5 +7,5 @@ export const titleFont = Rubik({
 
 export const textFont = Inter({
     subsets: ['latin'],
-    weight: ['400', '700'],
+    weight: ['400', '500', '600', '700'],
 });

@@ -1,6 +1,6 @@
 use crate::models::{NewTask, Task};
 use crate::db::establish_connection;
-use diesel::RunQueryDsl;
+use diesel::{RunQueryDsl, QueryDsl, ExpressionMethods};
 use diesel::result::Error;
 
 pub fn insert_task(
@@ -28,11 +28,13 @@ pub fn insert_task(
 }
 
 
-pub fn get_tasks() -> Result<Vec<Task>, Error> {
+pub fn get_tasks(date_filter: Option<chrono::NaiveDate>) -> Result<Vec<Task>, Error> {
     use crate::schema::tasks::dsl::*;
 
     let mut connection = establish_connection();
-
-    let results = tasks.load::<Task>(&mut connection)?;
+    println!("Date filter: {}", date_filter.unwrap_or_default());
+    let results = tasks
+        .filter(expiry.eq(date_filter))
+        .load::<Task>(&mut connection)?;
     Ok(results)
 }

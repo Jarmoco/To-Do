@@ -12,18 +12,12 @@ use task_ops::insert_task;
 
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![greet])
+        .invoke_handler(tauri::generate_handler![fetch_tasks, insert])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
 
 #[tauri::command]
-fn greet() {
-    println!("if you can read this it means ipc is working");
-    //insert("Merda Applicata", "bollire i fagioli nel gatorade", "MC Navazio", 2023, 07, 09, false);
-    fetch_tasks();
-}
-
 fn insert(title: &str, content: &str, author: &str, year: u16, month: u8, day: u8, done: bool) {
     match insert_task(
         String::from(title),
@@ -39,13 +33,21 @@ fn insert(title: &str, content: &str, author: &str, year: u16, month: u8, day: u
     }
 }
 
-fn fetch_tasks() {
-    match get_tasks() {
+#[tauri::command]
+fn fetch_tasks(year: u16, month: u8, day: u8) {
+    //println!("Getting tasks for YMD: {}/{}/{}", year, month, day);
+    let date_filter = NaiveDate::from_ymd_opt(
+        year.into(), 
+        month.into(), 
+        day.into()
+    
+    );
+    match get_tasks(date_filter) {
         Ok(tasks) => {
             println!("Displaying {} tasks", tasks.len());
             for task in tasks {
                 println!("{:?}", task);
-                println!("testo: {}", task.get_data(2));
+                //println!("testo: {}", task.get_data(2));
             }
         }
         Err(e) => eprintln!("Error reading tasks: {}", e),

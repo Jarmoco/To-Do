@@ -4,7 +4,18 @@ import style from "../css/tasks.module.css"
 // CLSX enables the use of multiple classes, just like in normal html
 import clsx from 'clsx';
 
+// UseEffect is used to disable ssr
+import { useEffect } from 'react'
+import { invoke } from "@tauri-apps/api/tauri"
+
 export default function TaskContainer() {
+    useEffect(() => {
+        invoke('fetch_tasks', {
+            year: new Date().getFullYear(), 
+            month: (new Date().getMonth()) + 1, 
+            day: new Date().getDate()
+        })
+      }, [])
     return (
         <div className={style.taskContainer}>
             <Task title={"Matematica"} description={"pag 22 n 12-33"} />

@@ -1,19 +1,21 @@
 /* This is the main page file */
 import Title from "@/components/sectionTitle"
 import TaskContainer from "@/components/tasks"
+import Blob1 from "@/components/blobGradient1";
 
 //import style from section module 
 import style from "../css/section.module.css"
 
-// UseEffect is used to disable ssr
-import { useEffect } from 'react'
-import { invoke } from "@tauri-apps/api/tauri"
+// CLSX enables the use of multiple classes, just like in normal html
+import clsx from 'clsx';
+
+import { textFont } from "@/components/fonts"
+
+// Allows to navigate between pages
+import Link from 'next/link';
 
 //------------------------------------------//
 export default function Page() {
-    useEffect(() => {
-        invoke('greet')
-      }, [])
     return (
         <>
             <Section/>
@@ -24,10 +26,15 @@ export default function Page() {
 function Section() {
     return (
         <div className={style.section}>
-            <Blob color="#D83BDB" posX="23vw" posY="23%" size="20vw"/>
-            <Blob color="#6E3BDB" posX="56vw" posY="49%" size="20vw"/>
+            <Blob1 />
+            <Blob color="#6E3BDB" posX="50vw" posY="47%" size="20vw"/>
             <Title title="Benvenuto" />
             <TaskContainer />
+            <div className={style.sectionButtonOutline}>
+                <button className={clsx(style.sectionButton, textFont.className)}>
+                    <Link href="newTask" className={clsx(style.link, textFont.className)}>Nuovo compito </Link>
+                </button>
+            </div>
         </div>
     )
 }
