@@ -1,4 +1,4 @@
-import NewTaskPanel from "@/components/newTaskPanel"
+import NewTaskPanel from "@/components/newTask/newTaskPanel"
 // UseEffect is used to disable ssr
 import { useEffect } from 'react'
 import { invoke } from "@tauri-apps/api/tauri"
