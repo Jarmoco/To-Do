@@ -5,25 +5,59 @@ import style from "../css/tasks.module.css"
 import clsx from 'clsx';
 
 // UseEffect is used to disable ssr
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { invoke } from "@tauri-apps/api/tauri"
 
 export default function TaskContainer() {
+    const [resultArray, setResultArray] = useState([]);
+
     useEffect(() => {
         invoke('fetch_tasks', {
-            year: new Date().getFullYear(), 
-            month: (new Date().getMonth()) + 1, 
-            day: new Date().getDate()
+            year: new Date().getFullYear(),
+            month: (new Date().getMonth()) + 1,
+            day: new Date().getDate() + 1
         })
-      }, [])
+            .then(result => {
+                // Update the state with the result array
+                setResultArray(result);
+            })
+            .catch(error => {
+                // Handle any errors that occurred during the API call
+                console.error('Error fetching tasks:', error);
+            });
+    }, [])
+
+    function renderTasks() {
+        if (resultArray.length === 0) {
+            return <EmptySign />;
+        }
+
+        let tasks = []
+
+        for (let i = 0; i < resultArray.length; i++) {
+            //console.log((resultArray[i].toString()))
+            let taskString = resultArray[i].toString()
+            taskString = taskString.replace('Task: ', '');
+
+            // Extracting the key-value pairs from the string
+            const keyValuePairs = taskString
+                .split(',')
+                .map((pair) => pair.trim())
+                .map((pair) => pair.split('='))
+                .map(([key, value]) => [key.trim(), value.trim()]);
+
+            // Creating an object from the key-value pairs
+            const dataObject = Object.fromEntries(keyValuePairs);
+
+            tasks.push(<Task key={i} title={dataObject.title} description={dataObject.content} />)
+        }
+
+        return tasks
+    }
+
     return (
         <div className={style.taskContainer}>
-            <Task title={"Matematica"} description={"pag 22 n 12-33"} />
-            <Task title={"Arte"} description={"pag 22 n 12-33, 22, 44, 553, 44"} />
-            <Task title={"Fisica"} description={"pag 22 n 12-3 sdas sad3"} />
-            <Task title={"Scienze"} description={"pdsadg 22 n 12-33"} />
-            <Task title={"Storia"} description={"pag 22  dasdasdn 12-33"} />
-            <Task title={"Filosofia"} description={"pwewerwerag 22 an 12-33"} />
+            {renderTasks()}
         </div>
     )
 }
@@ -31,7 +65,7 @@ export default function TaskContainer() {
 function Task({ title, description }) {
     return (
         <div className={style.task}>
-            <CheckBox/>
+            <CheckBox />
             <h2 className={clsx(style.taskTitle, textFont.className)}>{title}</h2>
             <h3 className={clsx(style.taskDescription, textFont.className)}>{description}</h3>
         </div>
@@ -44,8 +78,16 @@ function CheckBox() {
         <>
             <label className={style.checkboxContainer}>
                 <input type="checkbox"></input>
-                    <span className={style.checkmark}></span>
+                <span className={style.checkmark}></span>
             </label>
         </>
+    )
+}
+
+function EmptySign() {
+    return (
+        <h1 className={clsx(style.EmptySign, textFont.className)}>
+            Niente da vedere qui.
+        </h1>
     )
 }

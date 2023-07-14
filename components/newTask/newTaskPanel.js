@@ -7,16 +7,23 @@ import Blob3 from "./blobGradient3";
 import { DayInput, MonthInput, YearInput } from "./dateInput";
 // Allows to navigate between pages
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import { DaySelector } from "./daySelector";
 import { MonthSelector } from "./monthSelector";
 import { YearSelector } from "./yearSelector";
 
+import { invoke } from "@tauri-apps/api/tauri"
+
 
 export default function NewTaskPanel() {
+    const [selectedDay, setSelectedDay] = useState(new Date().getDate() + 1);
+    const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
+    const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+    
     const [inputValueTitle, setInputValueTitle] = useState('');
     const [inputValueDesc, setInputValueDesc] = useState('');
+    const [confirmClicked, setConfirmClicked] = useState(false);
 
     const handleInputChangeTitle = (event) => {
         setInputValueTitle(event.target.value);
@@ -32,11 +39,22 @@ export default function NewTaskPanel() {
         console.log('Selected Month:', selectedMonth);
         console.log('Selected Year:', selectedYear);
         // Perform further actions with the input value
+        setConfirmClicked(true)
     };
 
-    const [selectedDay, setSelectedDay] = useState(new Date().getDate() + 1);
-    const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
-    const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+    useEffect(() => {
+        if (confirmClicked) {
+            invoke('insert', {
+                title: inputValueTitle, 
+                content: inputValueDesc,
+                author: "TO-DO",
+                year: selectedYear,
+                month: selectedMonth,
+                day: selectedDay,
+                done: false
+            })
+        }
+      }, [confirmClicked, inputValueDesc, inputValueTitle, selectedDay, selectedMonth, selectedYear]);
 
     const [isDaySelectorVisible, setIsDaySelectorVisible] = useState(false);
     const [isMonthSelectorVisible, setIsMonthSelectorVisible] = useState(false);

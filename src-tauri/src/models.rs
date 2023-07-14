@@ -1,5 +1,6 @@
 use diesel::{Insertable, AsChangeset, Queryable};
 use crate::schema::tasks;
+use std::fmt;
 
 #[derive(Insertable)]
 #[diesel(table_name = tasks)]
@@ -19,6 +20,27 @@ pub struct Task {
     author: String,
     expiry: Option<chrono::NaiveDate>,
     is_done: bool,
+}
+
+//to convert task into string
+impl fmt::Display for Task {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let content_str = match &self.content {
+            Some(content) => content,
+            None => "",
+        };
+        
+        let expiry_str = match &self.expiry {
+            Some(expiry) => expiry.to_string(),
+            None => "No expiry date".to_string(),
+        };
+
+        write!(
+            f,
+            "Task: id={}, title={}, content={}, author={}, expiry={}, is_done={}",
+            self.id, self.title, content_str, self.author, expiry_str, self.is_done
+        )
+    }
 }
 
 // This function returns a single parameter value from the specified task
