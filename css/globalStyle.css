@@ -9,5 +9,13 @@ html, body {
 
 /* If you want to keep the margins on the body and don't want scroll bars, use the following css: */
 html { height:100%; }
-body { position:absolute; top:0; bottom:0; right:0; left:0; }
+body { 
+    position:absolute; 
+    top:0; 
+    bottom:0; 
+    right:0; 
+    left:0; 
+    overscroll-behavior-y: none;
+    overscroll-behavior-x: none;
+}
 

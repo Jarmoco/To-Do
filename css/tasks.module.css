@@ -1,5 +1,6 @@
 .taskTitle {
-    font-size: 3.5vh;
+    font-size: 3vh;
+    font-weight: 500;
     width: 28%;
 }
 
@@ -28,15 +29,17 @@
 
 .taskContainer {
     width: auto;
+    min-width: 35vw;
+    min-height: 45vh;
     height: auto;
     max-width: 50%;
     max-height: 45vh;
     padding: 1%;
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
-    background-color: rgba(24, 14, 37, 0.8);
+    background-color: rgba(24, 14, 37, 0.85);
     border-radius: 20px;
-    margin-top: 8%;
+    margin-top: 7%;
     box-shadow: 2px -18px 48px 9px rgba(59, 45, 79, 0.7) inset;
     overflow-y: scroll;
 }
@@ -96,6 +99,7 @@
     border-radius: 50%;
     background-color: rgba(29, 15, 36, 0.3);
     border: 0.5vh solid #433749;
+    transition: border 0.5s ease;
 }
 
 /* On mouse-over, add a lighter background color */
@@ -107,6 +111,7 @@
 .checkboxContainer input:checked~.checkmark {
     background: linear-gradient(56deg, #CFFF11 0%, #23B04B 100%);
     border: 0.5vh solid #7cd92d;
+    animation: greenLightAnimation 6s forwards;
 }
 
 /* Create the checkmark/indicator (hidden when not checked) */
@@ -132,4 +137,23 @@
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
+}
+
+
+@keyframes greenLightAnimation {
+    0% {
+        box-shadow: 0px 0px 20px 5px #7dd92d70;
+    }
+    100% {
+      box-shadow: none;
+    }
+}
+
+.EmptySign {
+    font-size: 2vh;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.5);
+    display: flex;
+    justify-content: center;
+    margin-top: 30%;
 }

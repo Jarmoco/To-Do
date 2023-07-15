@@ -37,7 +37,9 @@
         "providerShortName": null,
         "signingIdentity": null
       },
-      "resources": [],
+      "resources": [
+        ".env"
+      ],
       "shortDescription": "",
       "targets": "all",
       "windows": {
