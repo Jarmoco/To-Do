@@ -119,7 +119,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 armadiopofficial@gmail.com
 
-Project Link: [https://github.com/github_username/repo_name](https://github.com/armadio2902/SchoolManager2)
+Project Link: [https://github.com/armadio2902/SchoolManager2](https://github.com/armadio2902/SchoolManager2)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -127,8 +127,6 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 ## Acknowledgments
 
 * [Othneil Drew](https://github.com/othneildrew) for the [Readme template](https://github.com/othneildrew/Best-README-Template)
-
-Project Link: [https://github.com/github_username/repo_name](https://github.com/armadio2902/SchoolManager2)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
