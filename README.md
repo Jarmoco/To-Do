@@ -79,9 +79,8 @@
 
 ### Built With
 
-[![Next][Next.js]][Next-url]
 [![Tauri][Tauri]][Tauri-url]
-[![Rust][Rust]][Rust-url]
+[![Next][Next.js]][Next-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
