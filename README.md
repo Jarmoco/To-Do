@@ -27,7 +27,7 @@
 <h3 align="center">TO-DO</h3>
 
   <p align="center">
-    A simple, fast and beautiful to-do software.
+    A simple, lightweight and beautiful to-do app
     <br />
     <a href="https://github.com/armadio2902/SchoolManager2"><strong>Explore the docs »</strong></a>
     <br />
@@ -82,6 +82,8 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 ### Built With
 
 [![Next][Next.js]][Next-url]
+[![Tauri][Tauri]][Tauri-url]
+[![Rust][Rust]][Rust-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -95,23 +97,16 @@ To get a local copy up and running follow these steps:
 ### Prerequisites
 
 * Install Rust from [here](https://static.rust-lang.org/rustup/dist/x86_64-pc-windows-msvc/rustup-init.exe)
-* 
-
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
    ```sh
-   git clone https://github.com/github_username/repo_name.git
+   git clone https://github.com/armadio2902/SchoolManager2.git
    ```
 3. Install NPM packages
    ```sh
    npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -207,3 +202,7 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 [product-screenshot]: images/screenshot.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
+[Tauri]: https://img.shields.io/badge/tauri-24c8db?style=for-the-badge&logo=tauri&logoColor=ffc131
+[Tauri-url]: https://tauri.app/
+[Rust]: https://img.shields.io/badge/rust-ffffff?style=for-the-badge&logo=rust&logoColor=000000
+[Rust-url]: https://www.rust-lang.org/
