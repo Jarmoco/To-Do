@@ -105,6 +105,18 @@ To get a local copy up and running follow these steps:
    npm install
    ```
 
+### Running the app
+
+   ```sh
+   npm run tauri dev
+   ```
+
+### Building the app
+
+   ```sh
+   npm run tauri build
+   ```
+
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- LICENSE -->
