@@ -6,8 +6,8 @@
     "distDir": "../out"
   },
   "package": {
-    "productName": "schoolmanager2",
-    "version": "0.1.0"
+    "productName": "to.do",
+    "version": "0.0.1"
   },
   "tauri": {
     "allowlist": {
@@ -59,7 +59,7 @@
         "fullscreen": false,
         "height": 600,
         "resizable": true,
-        "title": "School Manager 2",
+        "title": "To do",
         "width": 800
       }
     ]
