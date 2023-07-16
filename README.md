@@ -118,6 +118,15 @@ Project Link: [https://github.com/github_username/repo_name](https://github.com/
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+<!-- Acknowledgments -->
+## Acknowledgments
+
+* [Othneil Drew](https://github.com/othneildrew) for the [Readme template](https://github.com/othneildrew/Best-README-Template)
+
+Project Link: [https://github.com/github_username/repo_name](https://github.com/armadio2902/SchoolManager2)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
