@@ -58,8 +58,8 @@
       <ul>
         <li><a href="#prerequisites">Prerequisites</a></li>
         <li><a href="#installation">Installation</a></li>
-        <li><a href="#Building-the-app">Running the app</a></li>
-        <li><a href="#Running-the-app">Building the app</a></li>
+        <li><a href="#Running-the-app">Running the app</a></li>
+        <li><a href="#Building-the-app">Building the app</a></li>
       </ul>
     </li>
     <li><a href="#license">License</a></li>
