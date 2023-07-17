@@ -73,7 +73,7 @@
 <!-- ABOUT THE PROJECT -->
 ## ❓ About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![Product Name Screen Shot][product-screenshot]](https://github.com/armadio2902/To-Do)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -84,7 +84,14 @@
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+<!-- Known Issues -->
+### ⚠️ Known Issues
+* Task checkbox doesn't work
 
+### ✨ Coming Soon
+* English language
+* Ability to edit and remove tasks
+* See tasks assigned for other days
 
 <!-- GETTING STARTED -->
 ## ✅ Getting Started
