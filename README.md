@@ -11,7 +11,7 @@
 -->
 
 > **Warning**
-> This software is available only in **Italian**. An English translation is not yet available.
+> This app is available only in **Italian**. An English translation is not yet available.
 
 <!--
 [![Contributors][contributors-shield]][contributors-url]
