@@ -25,7 +25,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/armadio2902/SchoolManager2">
+  <a href="https://github.com/armadio2902/To-Do">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
@@ -35,9 +35,9 @@
     A simple, lightweight and beautiful to-do app
     <br />
     <br />
-    <a href="https://github.com/armadio2902/SchoolManager2/issues">Report Bug</a>
+    <a href="https://github.com/armadio2902/To-Do/issues">Report Bug</a>
     ·
-    <a href="https://github.com/armadio2902/SchoolManager2/issues">Request Feature</a>
+    <a href="https://github.com/armadio2902/To-Do/issues">Request Feature</a>
   </p>
 </div>
 
@@ -99,7 +99,7 @@ To get a local copy up and running follow these steps:
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/armadio2902/SchoolManager2.git
+   git clone https://github.com/armadio2902/To-Do.git
    ```
 3. Install NPM packages
    ```sh
@@ -132,7 +132,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 armadiopofficial@gmail.com
 
-Project Link: [https://github.com/armadio2902/SchoolManager2](https://github.com/armadio2902/SchoolManager2)
+Project Link: [https://github.com/armadio2902/To-Do](https://github.com/armadio2902/To-Do)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -146,16 +146,16 @@ Project Link: [https://github.com/armadio2902/SchoolManager2](https://github.com
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/armadio2902/SchoolManager2.svg?style=for-the-badge
+[contributors-shield]: https://img.shields.io/github/contributors/armadio2902/To-Do.svg?style=for-the-badge
 [contributors-url]: https://github.com/github_username/repo_name/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/armadio2902/SchoolManager2.svg?style=for-the-badge
-[forks-url]: https://github.com/armadio2902/SchoolManager2/network/members
-[stars-shield]: https://img.shields.io/github/stars/armadio2902/SchoolManager2.svg?style=for-the-badge
-[stars-url]: https://github.com/armadio2902/SchoolManager2/stargazers
-[issues-shield]: https://img.shields.io/github/issues/armadio2902/SchoolManager2.svg?style=for-the-badge
-[issues-url]: https://github.com/armadio2902/SchoolManager2/issues
-[license-shield]: https://img.shields.io/github/license/armadio2902/SchoolManager2.svg?style=for-the-badge
-[license-url]: https://github.com/armadio2902/SchoolManager2/blob/main/LICENSE.txt
+[forks-shield]: https://img.shields.io/github/forks/armadio2902/To-Do.svg?style=for-the-badge
+[forks-url]: https://github.com/armadio2902/To-Do/network/members
+[stars-shield]: https://img.shields.io/github/stars/armadio2902/To-Do.svg?style=for-the-badge
+[stars-url]: https://github.com/armadio2902/To-Do/stargazers
+[issues-shield]: https://img.shields.io/github/issues/armadio2902/To-Do.svg?style=for-the-badge
+[issues-url]: https://github.com/armadio2902/To-Do/issues
+[license-shield]: https://img.shields.io/github/license/armadio2902/To-Do.svg?style=for-the-badge
+[license-url]: https://github.com/armadio2902/To-Do/blob/main/LICENSE.txt
 [product-screenshot]: images/screenshot.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
