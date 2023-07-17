@@ -6,7 +6,7 @@
     "distDir": "../out"
   },
   "package": {
-    "productName": "to.do",
+    "productName": "to do",
     "version": "0.0.1"
   },
   "tauri": {
@@ -28,7 +28,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.armadio2902.dev",
+      "identifier": "com.armadio2902.todo",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
