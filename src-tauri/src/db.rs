@@ -15,6 +15,6 @@ pub fn establish_connection() -> SqliteConnection {
 }
 
 pub fn create_table(conn: &SqliteConnection) -> QueryResult<()> {
-    tasks.create_table_if_not_exists(conn)?;
+    //tasks.create_table_if_not_exists(conn)?;
     Ok(())
 }
