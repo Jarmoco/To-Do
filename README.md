@@ -87,6 +87,7 @@
 <!-- Known Issues -->
 ### ⚠️ Known Issues
 * Task checkbox doesn't work
+* Tasks aren't being written to database in the built app
 
 ### ✨ Coming Soon
 * English language
