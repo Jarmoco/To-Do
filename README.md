@@ -95,7 +95,7 @@ To get a local copy up and running follow these steps:
 
 * Install Rust from [here](https://static.rust-lang.org/rustup/dist/x86_64-pc-windows-msvc/rustup-init.exe)
 
-### Installation
+### 📥 Installation
 
 1. Clone the repo
    ```sh
@@ -106,13 +106,13 @@ To get a local copy up and running follow these steps:
    npm install
    ```
 
-### Running the app
+### ⚙️ Running the app
 
    ```sh
    npm run tauri dev
    ```
 
-### Building the app
+### ⚒️ Building the app
 
    ```sh
    npm run tauri build
@@ -128,7 +128,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- CONTACT -->
-## Contact
+## 📨 Contact
 
 armadiopofficial@gmail.com
 
@@ -137,7 +137,7 @@ Project Link: [https://github.com/armadio2902/To-Do](https://github.com/armadio2
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- Acknowledgments -->
-## Acknowledgments
+## 🤝Acknowledgments
 
 * [Othneil Drew](https://github.com/othneildrew) for the [Readme template](https://github.com/othneildrew/Best-README-Template)
 
