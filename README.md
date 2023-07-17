@@ -71,7 +71,7 @@
 
 
 <!-- ABOUT THE PROJECT -->
-## About The Project
+## ❓ About The Project
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
@@ -87,7 +87,7 @@
 
 
 <!-- GETTING STARTED -->
-## Getting Started
+## ✅ Getting Started
 
 To get a local copy up and running follow these steps:
 
@@ -121,7 +121,7 @@ To get a local copy up and running follow these steps:
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- LICENSE -->
-## License
+## 📜License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
