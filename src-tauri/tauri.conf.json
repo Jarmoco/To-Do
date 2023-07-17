@@ -6,7 +6,7 @@
     "distDir": "../out"
   },
   "package": {
-    "productName": "to do",
+    "productName": "To Do",
     "version": "0.0.1"
   },
   "tauri": {
@@ -62,7 +62,7 @@
         "fullscreen": false,
         "height": 600,
         "resizable": true,
-        "title": "To do",
+        "title": "To Do",
         "width": 800
       }
     ]

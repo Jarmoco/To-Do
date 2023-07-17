@@ -6,14 +6,25 @@ mod models;
 mod schema;
 mod task_ops;
 
+use crate::db::establish_connection;
+use crate::db::create_table;
 use chrono::NaiveDate;
 use task_ops::get_tasks;
 use task_ops::insert_task;
+
+
 fn main() {
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![fetch_tasks, insert])
+        .invoke_handler(tauri::generate_handler![fetch_tasks, insert, init_db])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
+}
+
+#[tauri::command]
+fn init_db() {
+    let conn = establish_connection();
+    create_table(&conn)
+        .expect("Error while creating table")
 }
 
 #[tauri::command]
@@ -35,12 +46,7 @@ fn insert(title: &str, content: &str, author: &str, year: u16, month: u8, day: u
 #[tauri::command]
 fn fetch_tasks(year: u16, month: u8, day: u8) -> Vec<String> {
     //println!("Getting tasks for YMD: {}/{}/{}", year, month, day);
-    let date_filter = NaiveDate::from_ymd_opt(
-        year.into(), 
-        month.into(), 
-        day.into()
-    
-    );
+    let date_filter = NaiveDate::from_ymd_opt(year.into(), month.into(), day.into());
 
     let mut results: Vec<String> = Vec::new();
 
@@ -56,7 +62,8 @@ fn fetch_tasks(year: u16, month: u8, day: u8) -> Vec<String> {
         Err(e) => eprintln!("Error reading tasks: {}", e),
     }
     let json_results = serde_json::to_string(&results).expect("Failed to serialize as JSON");
-    let parsed_results: Vec<String> = serde_json::from_str(&json_results).expect("Failed to parse JSON");
+    let parsed_results: Vec<String> =
+        serde_json::from_str(&json_results).expect("Failed to parse JSON");
 
-    return parsed_results
+    return parsed_results;
 }
