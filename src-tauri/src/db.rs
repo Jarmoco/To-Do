@@ -2,7 +2,9 @@ use diesel::sqlite::SqliteConnection;
 use diesel::prelude::*;
 use dotenvy::dotenv;
 use std::env;
-use crate::schema::tasks;
+use diesel_migrations::{embed_migrations, EmbeddedMigrations, MigrationHarness};
+
+pub const MIGRATIONS: EmbeddedMigrations = embed_migrations!();
 
 pub fn establish_connection() -> SqliteConnection {
     // load environment variables from .env file
@@ -14,7 +16,8 @@ pub fn establish_connection() -> SqliteConnection {
         .unwrap_or_else(|_| panic!("Error connecting to {}", database_url))
 }
 
-pub fn create_table(conn: &SqliteConnection) -> QueryResult<()> {
-    //tasks.create_table_if_not_exists(conn)?;
-    Ok(())
+pub fn run_migrations() {
+    let mut conn = establish_connection();
+    conn.run_pending_migrations(MIGRATIONS)
+        .expect("Message");
 }

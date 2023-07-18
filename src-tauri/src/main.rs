@@ -6,26 +6,21 @@ mod models;
 mod schema;
 mod task_ops;
 
-use crate::db::establish_connection;
-use crate::db::create_table;
+use crate::db::run_migrations;
 use chrono::NaiveDate;
 use task_ops::get_tasks;
 use task_ops::insert_task;
 
 
 fn main() {
+    run_migrations();
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![fetch_tasks, insert, init_db])
+        .invoke_handler(tauri::generate_handler![fetch_tasks, insert])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
 
-#[tauri::command]
-fn init_db() {
-    let conn = establish_connection();
-    create_table(&conn)
-        .expect("Error while creating table")
-}
+
 
 #[tauri::command]
 fn insert(title: &str, content: &str, author: &str, year: u16, month: u8, day: u8, done: bool) {
