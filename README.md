@@ -87,7 +87,6 @@
 <!-- Known Issues -->
 ### ⚠️ Known Issues
 * Task checkbox doesn't work
-* Database table needs to be created manually using migrations
 
 ### ✨ Coming Soon
 * English language
