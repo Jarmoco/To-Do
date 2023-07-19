@@ -8,7 +8,14 @@ html, body {
 }
 
 /* If you want to keep the margins on the body and don't want scroll bars, use the following css: */
-html { height:100%; }
+html { 
+    height:100%;
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
+    overscroll-behavior-y: none;
+    overscroll-behavior-x: none;
+ }
+
 body { 
     position:absolute; 
     top:0; 
@@ -19,3 +26,6 @@ body {
     overscroll-behavior-x: none;
 }
 
+html::-webkit-scrollbar {
+    display: none;
+}

@@ -14,27 +14,41 @@ import { textFont } from "@/components/fonts"
 // Allows to navigate between pages
 import Link from 'next/link';
 
+import SettingsContainer from "@/components/settings";
+
 //------------------------------------------//
 export default function Page() {
     return (
-        <>
-            <Section/>
-        </>
+        <div className={style.sectionsContainer}>
+            <MainSection title={"Benvenuto"} />
+            <SettingsSection title={"Impostazioni"} />
+        </div>
     )
 }
 
-function Section() {
+function MainSection({ title }) {
     return (
         <div className={style.section}>
-            <Blob1 />
-            <Blob color="#6E3BDB" posX="50vw" posY="47%" size="20vw"/>
-            <Title title="Benvenuto" />
+            <Blob1 posY="20%"/>
+            <Blob color="#6E3BDB" posX="50vw" posY="47%" size="20vw" />
+            <Title title={title} />
             <TaskContainer />
             <div className={style.sectionButtonOutline}>
                 <button className={clsx(style.sectionButton, textFont.className)}>
                     <Link href="newTask" className={clsx(style.link, textFont.className)}>Nuovo compito </Link>
                 </button>
             </div>
+        </div>
+    )
+}
+
+function SettingsSection({ title }) {
+    return (
+        <div className={style.section}>
+            <Blob1 posY="120%"/>
+            <Blob color="#6E3BDB" posX="50vw" posY="147%" size="20vw" />
+            <Title title={title} />
+            <SettingsContainer />
         </div>
     )
 }

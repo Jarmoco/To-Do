@@ -60,7 +60,7 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 600,
+        "height": 450,
         "resizable": true,
         "title": "To Do",
         "width": 800
