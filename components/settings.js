@@ -40,14 +40,19 @@ export default function SettingsContainer() {
         dbUrl = dataObject.data_database_url;
     }
 
+    function saveFunction(database_url) {
+        console.log("saving")
+        invoke('save_settings', {dbUrl: database_url})
+    }
+
     return (
         <div className={style.SettingsContainer}>
-            {dataFetched && <DatabaseURLSetting databaseUrl={dbUrl}></DatabaseURLSetting>}
+            {dataFetched && <DatabaseURLSetting databaseUrl={dbUrl} saveFunction={saveFunction}></DatabaseURLSetting>}
         </div>
     )
 }
 
-function DatabaseURLSetting({ databaseUrl }) {
+function DatabaseURLSetting({ databaseUrl, saveFunction }) {
     const [inputDbUrl, setInputDbUrl] = useState(databaseUrl)
 
     const handleInputChangeDbUrl = (event) => {
@@ -59,7 +64,20 @@ function DatabaseURLSetting({ databaseUrl }) {
             <h3 className={style.genericSettingTitle}>URL Database</h3>
             <div className={style.inputFieldContainer}>
                 <TextInput id="title" placeHolder="URL del database, lascia vuoto per connetterti al database locale" value={inputDbUrl} onChange={handleInputChangeDbUrl}></TextInput>
+                <SaveButton onClick={saveFunction} value={inputDbUrl}></SaveButton>
             </div>
+        </div>
+    )
+}
+
+function SaveButton({onClick, value}) {
+    function save() {
+        onClick(value)
+    }
+
+    return (
+        <div className={style.SaveButtonOutline}>
+            <button onClick={save} className={clsx(style.SaveButton, textFont.className)}>Salva</button>
         </div>
     )
 }

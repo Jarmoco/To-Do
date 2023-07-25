@@ -34,7 +34,7 @@
     align-items: center;
 }
 
-.setButton {
+.SaveButton {
     background: linear-gradient(90deg, rgba(63,7,105,1) 0%, rgba(46,32,100,1) 100%);
     outline: none;
     width: 100%;
@@ -49,7 +49,7 @@
     cursor: pointer;
 }
 
-.setButtonOutline {
+.SaveButtonOutline {
     margin-left: 1vw;
     z-index: 1;
     display: flex;

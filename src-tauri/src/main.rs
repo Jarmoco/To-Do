@@ -72,6 +72,7 @@ fn fetch_tasks(year: u16, month: u8, day: u8) -> Vec<String> {
 
 #[tauri::command]
 fn save_settings(db_url: &str) {
+    println!("saving settings, new url: {}", db_url);
     update_settings("anon".to_string(), Some(db_url.to_string()));
 }
 
