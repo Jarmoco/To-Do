@@ -7,6 +7,7 @@ import { invoke } from "@tauri-apps/api/tauri"
 
 export default function SettingsContainer() {
     const [resultArray, setResultArray] = useState([]);
+    const [dataFetched, setDataFetched] = useState(false);
     let dbUrl;
 
     useEffect(() => {
@@ -14,6 +15,8 @@ export default function SettingsContainer() {
             .then(result => {
                 // Update the state with the result array
                 setResultArray(result)
+                //After all the values are fetched, set this to true to render the settings components
+                setDataFetched(true);
             })
             .catch(error => {
                 // Handle any errors that occurred during the API call
@@ -27,54 +30,35 @@ export default function SettingsContainer() {
 
         // Extracting the key-value pairs from the string
         const keyValuePairs = settingString
-        .split(',')
-        .map((pair) => pair.trim())
-        .map((pair) => pair.split('='))
-        .map(([key, value]) => [key.trim(), value.trim()]);
+            .split(',')
+            .map((pair) => pair.trim())
+            .map((pair) => pair.split('='))
+            .map(([key, value]) => [key.trim(), value.trim()]);
 
         // Creating an object from the key-value pairs
         const dataObject = Object.fromEntries(keyValuePairs);
         dbUrl = dataObject.data_database_url;
-
-        //console.log(dbUrl)
     }
 
     return (
         <div className={style.SettingsContainer}>
-            <DatabaseURLSetting databaseUrl={dbUrl}></DatabaseURLSetting>
+            {dataFetched && <DatabaseURLSetting databaseUrl={dbUrl}></DatabaseURLSetting>}
         </div>
     )
 }
 
-function DatabaseURLSetting({databaseUrl}) {
-    console.log(databaseUrl)
+function DatabaseURLSetting({ databaseUrl }) {
     const [inputDbUrl, setInputDbUrl] = useState(databaseUrl)
-    const [isEnterPressed, setIsEnterPressed] =useState(false)
-    
 
     const handleInputChangeDbUrl = (event) => {
         setInputDbUrl(event.target.value);
     };
 
-    const handleKeyPress = (event) => {
-        if (event.key === 'Enter') {
-            setIsEnterPressed(true)
-        }
-    };
-
-    useEffect(() => {
-        if (isEnterPressed) {
-            invoke('save_settings', {
-                dbUrl: inputDbUrl
-            })
-        }
-      }, [inputDbUrl]);
-
     return (
         <div className={clsx(style.genericSetting, style.DatabaseURLSetting, textFont.className)}>
             <h3 className={style.genericSettingTitle}>URL Database</h3>
             <div className={style.inputFieldContainer}>
-                <TextInput onKeyPress={handleKeyPress} id="title" placeHolder="URL del database, lascia vuoto per connetterti al database locale" value={inputDbUrl} onChange={handleInputChangeDbUrl}></TextInput>
+                <TextInput id="title" placeHolder="URL del database, lascia vuoto per connetterti al database locale" value={inputDbUrl} onChange={handleInputChangeDbUrl}></TextInput>
             </div>
         </div>
     )
