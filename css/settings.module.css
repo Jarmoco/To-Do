@@ -25,7 +25,12 @@
 
 .DatabaseURLSetting {
     border-top: 1px solid #513170;
-    margin-bottom: 50%;
+    margin-bottom: 1vh;
+}
+
+.UsernameSetting {
+    border-top: 1px solid #69344b;
+    margin-bottom: 20vh;
 }
 
 .inputFieldContainer {

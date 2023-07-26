@@ -1,8 +1,8 @@
 use crate::db::settings_establish_connection;
+use crate::models::{NewSetting, Setting};
 use crate::schema_settings::settings;
-use crate::models::{Setting, NewSetting};
-use diesel::{QueryDsl, RunQueryDsl};
 use diesel::result::Error;
+use diesel::{ExpressionMethods, QueryDsl, RunQueryDsl};
 
 pub fn check_settings() {
     let mut conn = settings_establish_connection();
@@ -20,26 +20,42 @@ pub fn check_settings() {
     }
 }
 
-pub fn update_settings(u: String, mut durl: Option<String>) {
+pub fn update_settings(mut u: String, mut durl: Option<String>) {
     use crate::schema_settings::settings::dsl::*;
     //println!("settings update request received");
+    let mut connection = settings_establish_connection();
+    let query = diesel::update(settings.find(1));
 
+    //What to do if values are empty
     if durl == Some("".to_string()) {
         durl = Some("data.db".to_string());
     }
 
-    let updated_settings = Setting {
-        id: 1,
-        data_database_url: durl,
-        username: u,
-    };
+    if u == "".to_string() {
+        u = "anonymous".to_string();
+    }
 
-    let mut connection = settings_establish_connection();
+    // Choose which value needs to be updated
+    if u == "_".to_string() {
+        query.set(data_database_url.eq(durl))
+            .execute(&mut connection)
+            .expect("Error while updating settings");
+    } else if durl == Some("_".to_string()) {
+        query.set(username.eq(u))
+            .execute(&mut connection)
+            .expect("Error while updating settings");
+    } else {
+        // Update all settings
+        let updated_settings = Setting {
+            id: 1,
+            data_database_url: durl,
+            username: u,
+        };
 
-    diesel::update(settings.find(1))
-        .set(&updated_settings)
-        .execute(&mut connection)
-        .expect("Error updating settings");
+        query.set(&updated_settings)
+            .execute(&mut connection)
+            .expect("Error while updating settings");
+    }
 }
 
 pub fn init_settings() -> Result<usize, Error> {
@@ -52,7 +68,6 @@ pub fn init_settings() -> Result<usize, Error> {
     let new_setting = NewSetting {
         data_database_url: durl,
         username: u,
-
     };
 
     diesel::insert_into(settings)
@@ -64,8 +79,7 @@ pub fn get_settings() -> Result<Vec<Setting>, Error> {
     use crate::schema_settings::settings::dsl::*;
 
     let mut connection = settings_establish_connection();
-    
-    let results = settings
-        .load::<Setting>(&mut connection)?;
+
+    let results = settings.load::<Setting>(&mut connection)?;
     Ok(results)
 }

@@ -9,7 +9,9 @@ export default function SettingsContainer() {
     const [resultArray, setResultArray] = useState([]);
     const [dataFetched, setDataFetched] = useState(false);
     let dbUrl;
+    let username;
 
+    //Fetch settings from the database
     useEffect(() => {
         invoke('fetch_settings')
             .then(result => {
@@ -24,6 +26,7 @@ export default function SettingsContainer() {
             });
     }, [])
 
+    //Parse the settings string into key-value pairs
     for (let i = 0; i < resultArray.length; i++) {
         let settingString = resultArray[i].toString()
         settingString = settingString.replace('Setting: ', '');
@@ -38,16 +41,20 @@ export default function SettingsContainer() {
         // Creating an object from the key-value pairs
         const dataObject = Object.fromEntries(keyValuePairs);
         dbUrl = dataObject.data_database_url;
+        username = dataObject.username;
     }
 
-    function saveFunction(database_url) {
-        console.log("saving")
-        invoke('save_settings', {dbUrl: database_url})
+    //Save settings to database
+    function saveFunction(d_url, u_name) {
+        console.log("saving settings")
+        console.log(d_url + "///" + u_name)
+        invoke('save_settings', {dbUrl: d_url, username: u_name})
     }
 
     return (
         <div className={style.SettingsContainer}>
             {dataFetched && <DatabaseURLSetting databaseUrl={dbUrl} saveFunction={saveFunction}></DatabaseURLSetting>}
+            {dataFetched && <UsernameSetting username={username} saveFunction={saveFunction}></UsernameSetting>}
         </div>
     )
 }
@@ -55,7 +62,7 @@ export default function SettingsContainer() {
 function DatabaseURLSetting({ databaseUrl, saveFunction }) {
     const [inputDbUrl, setInputDbUrl] = useState(databaseUrl)
 
-    const handleInputChangeDbUrl = (event) => {
+    const handleInputChange = (event) => {
         setInputDbUrl(event.target.value);
     };
 
@@ -63,16 +70,34 @@ function DatabaseURLSetting({ databaseUrl, saveFunction }) {
         <div className={clsx(style.genericSetting, style.DatabaseURLSetting, textFont.className)}>
             <h3 className={style.genericSettingTitle}>URL Database</h3>
             <div className={style.inputFieldContainer}>
-                <TextInput id="title" placeHolder="URL del database, lascia vuoto per connetterti al database locale" value={inputDbUrl} onChange={handleInputChangeDbUrl}></TextInput>
-                <SaveButton onClick={saveFunction} value={inputDbUrl}></SaveButton>
+                <TextInput id="title" placeHolder="URL del database, lascia vuoto per connetterti al database locale" value={inputDbUrl} onChange={handleInputChange}></TextInput>
+                <SaveButton onClick={saveFunction} dbUrl={inputDbUrl} username={"_"}></SaveButton>
             </div>
         </div>
     )
 }
 
-function SaveButton({onClick, value}) {
+function UsernameSetting({ username, saveFunction }) {
+    const [inputUsername, setInputUsername] = useState(username)
+
+    const handleInputChange = (event) => {
+        setInputUsername(event.target.value);
+    };
+
+    return (
+        <div className={clsx(style.genericSetting, style.UsernameSetting, textFont.className)}>
+            <h3 className={style.genericSettingTitle}>Username</h3>
+            <div className={style.inputFieldContainer}>
+                <TextInput id="title" placeHolder="Nome utente, lascia vuoto per rimanere anonimo" value={inputUsername} onChange={handleInputChange}></TextInput>
+                <SaveButton onClick={saveFunction} dbUrl={"_"} username={inputUsername}></SaveButton>
+            </div>
+        </div>
+    )
+}
+
+function SaveButton({onClick, dbUrl, username}) {
     function save() {
-        onClick(value)
+        onClick(dbUrl, username)
     }
 
     return (
