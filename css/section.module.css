@@ -2,6 +2,11 @@
     scroll-behavior: smooth;
 }
 
+/* Window style */
+.app {
+    border-radius: 10px;
+}
+
 .section {
     background: radial-gradient(circle at center, #1A0732 0,black 100%);
     background-repeat: no-repeat;

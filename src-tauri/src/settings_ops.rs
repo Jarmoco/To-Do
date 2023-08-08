@@ -1,31 +1,60 @@
+use crate::db::run_migrations;
 use crate::db::settings_establish_connection;
 use crate::models::{NewSetting, Setting};
-use crate::schema_settings::settings;
+use crate::schema_settings::settings::dsl::*;
+use diesel::prelude::*;
 use diesel::result::Error;
-use diesel::{ExpressionMethods, QueryDsl, RunQueryDsl};
+use diesel::sql_types::Text;
+use diesel::QueryDsl;
+use diesel::{ExpressionMethods, RunQueryDsl};
+use std::path::Path;
+
+#[derive(QueryableByName)]
+struct TableName {
+    #[sql_type = "Text"]
+    name: String,
+}
 
 pub fn check_settings() {
-    let mut conn = settings_establish_connection();
+    let path = Path::new("./settings.db");
 
-    // Query the table to check if it's empty
-    let is_table_empty = settings::table
-        .select(diesel::dsl::count_star())
-        .get_result::<i64>(&mut conn)
-        .expect("Error querying the table")
-        .eq(&0);
+    // Check if settings database exists
+    if path.exists() {
+        println!("Settings database exists");
 
-    if is_table_empty {
-        println!("The table is empty");
+        let mut connection = settings_establish_connection();
+        let query = format!(
+            "SELECT name FROM sqlite_master WHERE type='table' AND name='{}'",
+            "settings"
+        );
+        //let result: Result<usize, Error> = diesel::sql_query(query).execute(&mut connection);
+
+        let table_name = "settings";
+        let results: Vec<TableName> = diesel::sql_query(query)
+            .load(&mut connection)
+            .expect("Error loading data");
+        if results.is_empty() {
+            println!("Table {} does not exist", table_name);
+            // Since this code runs only when settings.db needs to be created, we can set data.db as the url
+            run_migrations("data.db");
+            init_settings().expect("Error while creating settings table");
+        } else {
+            println!("Table {} exists", table_name);
+        }
+
+    } else {
+        println!("Settings database doesn't exists");
+        run_migrations("data.db");
         init_settings().expect("Error while creating settings table");
     }
 }
 
 pub fn update_settings(mut u: String, mut durl: Option<String>) {
-    use crate::schema_settings::settings::dsl::*;
     //println!("settings update request received");
     let mut connection = settings_establish_connection();
     let query = diesel::update(settings.find(1));
 
+    println!("Updating settings, username: {}, data database url: {:?}", u, durl);
     //What to do if values are empty
     if durl == Some("".to_string()) {
         durl = Some("data.db".to_string());
@@ -37,11 +66,13 @@ pub fn update_settings(mut u: String, mut durl: Option<String>) {
 
     // Choose which value needs to be updated
     if u == "_".to_string() {
-        query.set(data_database_url.eq(durl))
+        query
+            .set(data_database_url.eq(durl))
             .execute(&mut connection)
             .expect("Error while updating settings");
     } else if durl == Some("_".to_string()) {
-        query.set(username.eq(u))
+        query
+            .set(username.eq(u))
             .execute(&mut connection)
             .expect("Error while updating settings");
     } else {
@@ -52,15 +83,14 @@ pub fn update_settings(mut u: String, mut durl: Option<String>) {
             username: u,
         };
 
-        query.set(&updated_settings)
+        query
+            .set(&updated_settings)
             .execute(&mut connection)
             .expect("Error while updating settings");
     }
 }
 
 pub fn init_settings() -> Result<usize, Error> {
-    use crate::schema_settings::settings::dsl::*;
-
     let u: String = "guest".to_string();
     let durl: Option<String> = Some("data.db".to_string());
 
@@ -76,8 +106,6 @@ pub fn init_settings() -> Result<usize, Error> {
 }
 
 pub fn get_settings() -> Result<Vec<Setting>, Error> {
-    use crate::schema_settings::settings::dsl::*;
-
     let mut connection = settings_establish_connection();
 
     let results = settings.load::<Setting>(&mut connection)?;

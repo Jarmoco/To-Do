@@ -16,6 +16,7 @@ import Link from 'next/link';
 
 import SettingsContainer from "@/components/settings";
 
+
 //------------------------------------------//
 export default function Page() {
     return (
@@ -29,7 +30,7 @@ export default function Page() {
 function MainSection({ title }) {
     return (
         <div className={style.section}>
-            <Blob1 posY="20%"/>
+            <Blob1 posY="20%" />
             <Blob color="#6E3BDB" posX="50vw" posY="47%" size="20vw" />
             <Title title={title} />
             <TaskContainer />
@@ -45,7 +46,7 @@ function MainSection({ title }) {
 function SettingsSection({ title }) {
     return (
         <div className={style.section}>
-            <Blob1 posY="120%"/>
+            <Blob1 posY="120%" />
             <Blob color="#6E3BDB" posX="50vw" posY="147%" size="20vw" />
             <Title title={title} />
             <SettingsContainer />

@@ -15,7 +15,9 @@ export default function TaskContainer() {
         invoke('fetch_tasks', {
             year: new Date().getFullYear(),
             month: (new Date().getMonth()) + 1,
-            day: new Date().getDate() + 1
+            day: new Date().getDate() + 1,
+            //TODO: fix this string
+            dbUrl: "data.db"
         })
             .then(result => {
                 // Update the state with the result array
