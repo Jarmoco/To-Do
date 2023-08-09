@@ -1,5 +1,6 @@
 use diesel::{Insertable, AsChangeset, Queryable};
-use crate::schema::tasks;
+use crate::schema_data::tasks;
+use crate::schema_settings::settings;
 use std::fmt;
 
 #[derive(Insertable)]
@@ -20,6 +21,20 @@ pub struct Task {
     author: String,
     expiry: Option<chrono::NaiveDate>,
     is_done: bool,
+}
+
+#[derive(Insertable)]
+#[diesel(table_name = settings)]
+pub struct NewSetting {
+    pub data_database_url: Option<String>,
+    pub username: String,
+}
+
+#[derive(Queryable, Debug, AsChangeset)]
+pub struct Setting {
+    pub id: i32,
+    pub data_database_url: Option<String>,
+    pub username: String,
 }
 
 //to convert task into string
@@ -55,5 +70,21 @@ impl Task {
             5 => return self.is_done.to_string(),
             _ => return String::from("error in getting data from task: data_index is outside the accepted values"),
         }
+    }
+}
+
+//to convert setting into string
+impl fmt::Display for Setting {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        let database_url_str = match &self.data_database_url {
+            Some(database_url) => database_url,
+            None => "",
+        };
+
+        write!(
+            f,
+            "Setting: id={}, data_database_url={}, username={}",
+            self.id, database_url_str, self.username
+        )
     }
 }
