@@ -9,6 +9,7 @@ use diesel::QueryDsl;
 use diesel::{ExpressionMethods, RunQueryDsl};
 use std::path::Path;
 
+#[allow(dead_code)]
 #[derive(QueryableByName)]
 struct TableName {
     #[sql_type = "Text"]

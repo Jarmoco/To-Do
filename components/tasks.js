@@ -50,8 +50,8 @@ export default function TaskContainer() {
 
             // Creating an object from the key-value pairs
             const dataObject = Object.fromEntries(keyValuePairs);
-
-            tasks.push(<Task key={i} title={dataObject.title} description={dataObject.content} />)
+            //console.log(dataObject.is_done)
+            tasks.push(<Task key={i} title={dataObject.title} description={dataObject.content} id={dataObject.id} isDone={JSON.parse(dataObject.is_done)} />)
         }
 
         return tasks
@@ -64,10 +64,10 @@ export default function TaskContainer() {
     )
 }
 
-function Task({ title, description }) {
+function Task({ title, description, id, isDone }) {
     return (
         <div className={style.task}>
-            <CheckBox />
+            <CheckBox task_id={id} is_done={isDone} />
             <h2 className={clsx(style.taskTitle, textFont.className)}>{title}</h2>
             <h3 className={clsx(style.taskDescription, textFont.className)}>{description}</h3>
         </div>
@@ -75,11 +75,28 @@ function Task({ title, description }) {
 }
 
 // Custom checkbox component
-function CheckBox() {
+function CheckBox({ task_id, is_done }) {
+    const [isChecked, setIsChecked] = useState(is_done);
+    useEffect(() => {
+        // This code will be executed whenever the checkbox state (isChecked) changes
+        if (isChecked) {
+            console.log('Checkbox is checked');
+            // TODO: Fix data.db string
+            invoke('update_task', { id: task_id, status: isChecked, dbUrl: "data.db" })
+        } else {
+            console.log('Checkbox is unchecked');
+            invoke('update_task', { id: task_id, status: isChecked, dbUrl: "data.db" })
+        }
+    }, [isChecked, task_id]);
+
+    const handleCheckboxChange = () => {
+        setIsChecked(!isChecked); // Toggle the checkbox state
+    };
+
     return (
         <>
             <label className={style.checkboxContainer}>
-                <input type="checkbox"></input>
+                <input type="checkbox" checked={isChecked} onChange={handleCheckboxChange}></input>
                 <span className={style.checkmark}></span>
             </label>
         </>

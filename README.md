@@ -86,7 +86,7 @@
 
 <!-- Known Issues -->
 ### ⚠️ Known Issues
-* Task checkbox doesn't work
+* Database URL setting doesn't work properly, don't change it
 
 ### ✨ Coming Soon
 * English language
