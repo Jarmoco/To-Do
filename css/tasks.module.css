@@ -45,12 +45,14 @@
 
 /* width */
 .taskContainer::-webkit-scrollbar {
+    display: none;
     width: 0.6vw;
 }
 
 /* Track */
 .taskContainer::-webkit-scrollbar-track {
     background: transparent;
+    border: 10px solid transparent;
 }
 
 /* Handle */

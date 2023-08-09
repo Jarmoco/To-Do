@@ -12,7 +12,7 @@ use std::path::Path;
 #[allow(dead_code)]
 #[derive(QueryableByName)]
 struct TableName {
-    #[sql_type = "Text"]
+    #[diesel(sql_type = Text)]
     name: String,
 }
 

@@ -48,10 +48,13 @@
 }
 
 .buttonsContainer button {
+    display: flex;
     height: 7vh;
     width: 10vw;
     border-radius: 10px;
     outline: none;
+    align-items: center;
+    justify-content: center;
 }
 
 .buttonsContainer button a {

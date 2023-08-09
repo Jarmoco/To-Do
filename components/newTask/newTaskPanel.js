@@ -15,7 +15,6 @@ import { YearSelector } from "./yearSelector";
 
 import { invoke } from "@tauri-apps/api/tauri"
 
-
 export default function NewTaskPanel() {
     //Check if current day is the last of the month
     let dayOffset = 1
@@ -48,6 +47,8 @@ export default function NewTaskPanel() {
     const [inputValueDesc, setInputValueDesc] = useState('');
     const [confirmClicked, setConfirmClicked] = useState(false);
 
+    const [settingsArray, setSettingsArray] = useState([]);
+
     const handleInputChangeTitle = (event) => {
         setInputValueTitle(event.target.value);
     };
@@ -66,6 +67,33 @@ export default function NewTaskPanel() {
     };
 
     useEffect(() => {
+        let dbUrl;
+
+        invoke('fetch_settings').then(result => {
+            // Update the state with the result array
+            setSettingsArray(result)
+        }).catch(error => {
+            // Handle any errors that occurred during the API call
+            console.error('Error fetching settings:', error);
+        });
+
+        //Parse the settings string into key-value pairs
+        for (let i = 0; i < settingsArray.length; i++) {
+            let settingString = settingsArray[i].toString()
+            settingString = settingString.replace('Setting: ', '');
+
+            // Extracting the key-value pairs from the string
+            const keyValuePairs = settingString
+                .split(',')
+                .map((pair) => pair.trim())
+                .map((pair) => pair.split('='))
+                .map(([key, value]) => [key.trim(), value.trim()]);
+
+            // Creating an object from the key-value pairs
+            const dataObject = Object.fromEntries(keyValuePairs);
+            dbUrl = dataObject.data_database_url;
+        }
+
         if (confirmClicked) {
             invoke('insert', {
                 title: inputValueTitle,
@@ -75,8 +103,7 @@ export default function NewTaskPanel() {
                 month: selectedMonth,
                 day: selectedDay,
                 done: false,
-                //TODO FIX THIS STRING
-                dbUrl: "data.db"
+                dbUrl: dbUrl,
             })
         }
     }, [confirmClicked, inputValueDesc, inputValueTitle, selectedDay, selectedMonth, selectedYear]);

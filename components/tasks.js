@@ -78,13 +78,16 @@ function Task({ title, description, id, isDone }) {
 function CheckBox({ task_id, is_done }) {
     const [isChecked, setIsChecked] = useState(is_done);
     useEffect(() => {
+
+        
+
         // This code will be executed whenever the checkbox state (isChecked) changes
         if (isChecked) {
-            console.log('Checkbox is checked');
+            //console.log('Checkbox is checked');
             // TODO: Fix data.db string
             invoke('update_task', { id: task_id, status: isChecked, dbUrl: "data.db" })
         } else {
-            console.log('Checkbox is unchecked');
+            //console.log('Checkbox is unchecked');
             invoke('update_task', { id: task_id, status: isChecked, dbUrl: "data.db" })
         }
     }, [isChecked, task_id]);

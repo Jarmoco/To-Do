@@ -2,6 +2,7 @@
 import Title from "@/components/sectionTitle"
 import TaskContainer from "@/components/tasks"
 import Blob1 from "@/components/blobGradient1";
+import DownArrow from "@/components/downArrow";
 
 //import style from section module 
 import style from "../css/section.module.css"
@@ -39,6 +40,7 @@ function MainSection({ title }) {
                     <Link href="newTask" className={clsx(style.link, textFont.className)}>Nuovo compito </Link>
                 </button>
             </div>
+            <DownArrow></DownArrow>
         </div>
     )
 }
