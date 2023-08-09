@@ -1,21 +1,59 @@
-html, body {
-    background: radial-gradient(circle at center, #1A0732 0,black 100%);
+html,
+body {
+    background: radial-gradient(circle at center, #1A0732 0, black 100%);
     background-repeat: no-repeat;
     color: white;
-    width: 	100%;
+    width: 100%;
     margin: 0;
     padding: 0;
 }
 
 /* If you want to keep the margins on the body and don't want scroll bars, use the following css: */
-html { height:100%; }
-body { 
-    position:absolute; 
-    top:0; 
-    bottom:0; 
-    right:0; 
-    left:0; 
+html {
+    height: 100%;
+    scroll-snap-type: y mandatory;
+    overflow-y: scroll;
     overscroll-behavior-y: none;
     overscroll-behavior-x: none;
 }
 
+body {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    overscroll-behavior-y: none;
+    overscroll-behavior-x: none;
+}
+
+html::-webkit-scrollbar {
+    display: none;
+}
+
+
+
+/* CUSTOM TITLEBAR */
+.titlebar {
+    height: 30px;
+    background: #329ea3;
+    user-select: none;
+    display: flex;
+    justify-content: flex-end;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.titlebar-button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+}
+
+.titlebar-button:hover {
+    background: #5bbec3;
+}

@@ -17,10 +17,33 @@ import { invoke } from "@tauri-apps/api/tauri"
 
 
 export default function NewTaskPanel() {
-    const [selectedDay, setSelectedDay] = useState(new Date().getDate() + 1);
-    const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
+    //Check if current day is the last of the month
+    let dayOffset = 1
+    let monthOffset = 1
+
+    if (isLastDay() == true) {
+        dayOffset = - ((new Date().getDate() - 1))
+
+        // Check if current month is december
+        // create a new date object for today
+        const today = new Date();
+
+        // get the month index (0-11) for the current date
+        const currentMonthIndex = today.getMonth();
+
+        // check if the current month index is 11 (December)
+        if (currentMonthIndex === 11) {
+            monthOffset = -10
+        } else {
+            monthOffset = 2;
+        }
+
+    }
+
+    const [selectedDay, setSelectedDay] = useState(new Date().getDate() + dayOffset);
+    const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + monthOffset);
     const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
-    
+
     const [inputValueTitle, setInputValueTitle] = useState('');
     const [inputValueDesc, setInputValueDesc] = useState('');
     const [confirmClicked, setConfirmClicked] = useState(false);
@@ -45,16 +68,18 @@ export default function NewTaskPanel() {
     useEffect(() => {
         if (confirmClicked) {
             invoke('insert', {
-                title: inputValueTitle, 
+                title: inputValueTitle,
                 content: inputValueDesc,
                 author: "TO-DO",
                 year: selectedYear,
                 month: selectedMonth,
                 day: selectedDay,
-                done: false
+                done: false,
+                //TODO FIX THIS STRING
+                dbUrl: "data.db"
             })
         }
-      }, [confirmClicked, inputValueDesc, inputValueTitle, selectedDay, selectedMonth, selectedYear]);
+    }, [confirmClicked, inputValueDesc, inputValueTitle, selectedDay, selectedMonth, selectedYear]);
 
     const [isDaySelectorVisible, setIsDaySelectorVisible] = useState(false);
     const [isMonthSelectorVisible, setIsMonthSelectorVisible] = useState(false);
@@ -87,6 +112,22 @@ export default function NewTaskPanel() {
         setIsYearSelectorVisible((prevState) => !prevState);
     }
 
+    function isLastDay() {
+        // create a new date object for today
+        const today = new Date();
+
+        // get the last day of the month for the current date
+        const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
+
+        // check if today's date is equal to the last day of the month
+        if (today.getDate() === lastDayOfMonth) {
+            //console.log("Today is the last day of the month.");
+            return true
+        } else {
+            return false
+        }
+    }
+
     return (
         <div className={style.container}>
             <Blob3></Blob3>
@@ -116,13 +157,13 @@ export default function NewTaskPanel() {
                 <MonthSelector
                     onMonthSelect={handleMonthSelect}
                     onClick={handleMonthInputClick}
-                /> : null 
+                /> : null
             }
             {isYearSelectorVisible ?
                 <YearSelector
                     onYearSelect={handleYearSelect}
                     onClick={handleYearInputClick}
-                /> : null 
+                /> : null
             }
 
         </div>

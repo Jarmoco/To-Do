@@ -1,5 +1,5 @@
 use crate::models::{NewTask, Task};
-use crate::db::establish_connection;
+use crate::db::data_establish_connection;
 use diesel::{RunQueryDsl, QueryDsl, ExpressionMethods};
 use diesel::result::Error;
 
@@ -9,11 +9,12 @@ pub fn insert_task(
     a: String,
     e: Option<chrono::NaiveDate>,
     d: bool,
+    database_url: &str,
 ) -> Result<usize, Error> {
+    println!("Adding task to database...");
+    use crate::schema_data::tasks::dsl::*;
 
-    use crate::schema::tasks::dsl::*;
-
-    let mut connection = establish_connection();
+    let mut connection = data_establish_connection(database_url);
     let new_task = NewTask {
         title: t,
         content: c,
@@ -28,10 +29,10 @@ pub fn insert_task(
 }
 
 
-pub fn get_tasks(date_filter: Option<chrono::NaiveDate>) -> Result<Vec<Task>, Error> {
-    use crate::schema::tasks::dsl::*;
+pub fn get_tasks(date_filter: Option<chrono::NaiveDate>, database_url: &str,) -> Result<Vec<Task>, Error> {
+    use crate::schema_data::tasks::dsl::*;
 
-    let mut connection = establish_connection();
+    let mut connection = data_establish_connection(database_url);
     println!("Date filter: {}", date_filter.unwrap_or_default());
     let results = tasks
         .filter(expiry.eq(date_filter))

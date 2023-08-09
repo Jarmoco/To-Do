@@ -3,7 +3,8 @@
     "beforeBuildCommand": "npm run build",
     "beforeDevCommand": "npm run dev",
     "devPath": "http://localhost:3000",
-    "distDir": "../out"
+    "distDir": "../out",
+    "withGlobalTauri": false
   },
   "package": {
     "productName": "To Do",
@@ -11,7 +12,17 @@
   },
   "tauri": {
     "allowlist": {
-      "all": false
+      "window": {
+        "all": false,
+        "close": true,
+        "hide": true,
+        "show": true,
+        "maximize": true,
+        "minimize": true,
+        "unmaximize": true,
+        "unminimize": true,
+        "startDragging": true
+      }
     },
     "bundle": {
       "active": true,
@@ -60,10 +71,12 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 600,
+        "height": 450,
         "resizable": true,
         "title": "To Do",
-        "width": 800
+        "width": 800,
+        "decorations": true,
+        "transparent": false
       }
     ]
   }

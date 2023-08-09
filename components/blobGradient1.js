@@ -1,4 +1,4 @@
-export default function Blob1() {
+export default function Blob1({posY}) {
     return (
         <>
             <div>
@@ -20,7 +20,7 @@ export default function Blob1() {
                 width: 20vw;
                 height: 40vh;
                 position: absolute;
-                top: 20%;
+                top: ${posY};
                 left: 28%;
                 filter: blur(50px)
             }
