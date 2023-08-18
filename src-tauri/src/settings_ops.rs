@@ -28,14 +28,15 @@ pub fn check_settings() {
             "SELECT name FROM sqlite_master WHERE type='table' AND name='{}'",
             "settings"
         );
-        //let result: Result<usize, Error> = diesel::sql_query(query).execute(&mut connection);
 
+        // since database exists, check if table "settings" exists
         let table_name = "settings";
         let results: Vec<TableName> = diesel::sql_query(query)
             .load(&mut connection)
             .expect("Error loading data");
         if results.is_empty() {
             println!("Table {} does not exist", table_name);
+
             // Since this code runs only when settings.db needs to be created, we can set data.db as the url
             run_migrations("data.db");
             init_settings().expect("Error while creating settings table");
@@ -44,6 +45,8 @@ pub fn check_settings() {
         }
 
     } else {
+        // if table doesn't exist we can assume that this is the first time launching the app,
+        // so we need to run migrations (to create the data database) and define the settings table
         println!("Settings database doesn't exists");
         run_migrations("data.db");
         init_settings().expect("Error while creating settings table");

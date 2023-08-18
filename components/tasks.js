@@ -10,23 +10,31 @@ import { invoke } from "@tauri-apps/api/tauri"
 
 export default function TaskContainer() {
     const [resultArray, setResultArray] = useState([]);
+    let dbUrl;
 
     useEffect(() => {
-        invoke('fetch_tasks', {
-            year: new Date().getFullYear(),
-            month: (new Date().getMonth()) + 1,
-            day: new Date().getDate() + 1,
-            //TODO fix this
-            dbUrl: "data.db",
-        })
-            .then(result => {
-                // Update the state with the result array
-                setResultArray(result);
+        invoke('get_db_url').then(result => {
+            dbUrl = result
+
+            invoke('fetch_tasks', {
+                year: new Date().getFullYear(),
+                month: (new Date().getMonth()) + 1,
+                day: new Date().getDate() + 1,
+                dbUrl: dbUrl,
             })
-            .catch(error => {
-                // Handle any errors that occurred during the API call
-                console.error('Error fetching tasks:', error);
-            });
+                .then(result => {
+                    // Update the state with the result array
+                    setResultArray(result);
+                })
+                .catch(error => {
+                    // Handle any errors that occurred during the API call
+                    console.error('Error fetching tasks:', error);
+                });
+        })
+
+
+
+
     }, [])
 
 
@@ -90,19 +98,22 @@ function Task({ title, description, id, isDone }) {
 // Custom checkbox component
 function CheckBox({ task_id, is_done }) {
     const [isChecked, setIsChecked] = useState(is_done);
+    let dbUrl;
+
     useEffect(() => {
+        invoke('get_db_url').then(result => {
+            dbUrl=result
+            // This code will be executed whenever the checkbox state (isChecked) changes
+            if (isChecked) {
+                //console.log('Checkbox is checked');
+                invoke('update_task', { id: task_id, status: isChecked, dbUrl: dbUrl })
+            } else {
+                //console.log('Checkbox is unchecked');
+                invoke('update_task', { id: task_id, status: isChecked, dbUrl: dbUrl })
+            }
+        })
 
 
-
-        // This code will be executed whenever the checkbox state (isChecked) changes
-        if (isChecked) {
-            //console.log('Checkbox is checked');
-            // TODO: Fix data.db string
-            invoke('update_task', { id: task_id, status: isChecked, dbUrl: "data.db" })
-        } else {
-            //console.log('Checkbox is unchecked');
-            invoke('update_task', { id: task_id, status: isChecked, dbUrl: "data.db" })
-        }
     }, [isChecked, task_id]);
 
     const handleCheckboxChange = () => {

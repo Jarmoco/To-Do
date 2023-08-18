@@ -85,8 +85,6 @@
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- Known Issues -->
-### ⚠️ Known Issues
-* Database URL setting doesn't work properly, don't change it
 
 ### ✨ Coming Soon
 * English language

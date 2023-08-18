@@ -8,7 +8,10 @@ mod schema_settings;
 mod task_ops;
 mod settings_ops;
 
+use std::collections::HashMap;
+
 use chrono::NaiveDate;
+use db::run_migrations;
 use task_ops::get_tasks;
 use task_ops::insert_task;
 use task_ops::update;
@@ -16,11 +19,11 @@ use settings_ops::update_settings;
 use settings_ops::check_settings;
 use settings_ops::get_settings;
 
+
 fn main() {
-    get_db_url();
     check_settings();
     tauri::Builder::default()
-        .invoke_handler(tauri::generate_handler![fetch_tasks, insert, save_settings, fetch_settings, update_task])
+        .invoke_handler(tauri::generate_handler![fetch_tasks, insert, save_settings, fetch_settings, update_task, get_db_url])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
@@ -113,23 +116,52 @@ fn update_task(id: &str, status: bool, db_url: &str) {
     
 }
 
-fn get_db_url() {
+#[tauri::command]
+fn get_db_url() -> String {
+    //println!("TEST ATTENZIONE");
+   
     let mut results: Vec<String> = Vec::new();
 
     match get_settings() {
         Ok(settings) => {
             for setting in settings {
-                //println!("{:?}", setting);
                 results.push(setting.to_string());
             }
         }
         Err(e) => eprintln!("Error reading settings: {}", e),
     }
-    let json_results = serde_json::to_string(&results).expect("Failed to serialize settings as JSON");
-    let parsed_results: Vec<String> =
-        serde_json::from_str(&json_results).expect("Failed to parse settings JSON");
 
-    println!("{:?}", parsed_results);
+    let mut parsed_results: Vec<HashMap<String, String>> = Vec::new();
 
-    
+    for setting_str in &results {
+        let key_value_pairs: Vec<&str> = setting_str.split(',').collect();
+        let mut parsed_setting: HashMap<String, String> = HashMap::new();
+
+        for pair in key_value_pairs {
+            let components: Vec<&str> = pair.trim().split('=').collect();
+            if components.len() == 2 {
+                let key = components[0].trim().to_string();
+                let value = components[1].trim().to_string();
+                parsed_setting.insert(key, value);
+            }
+        }
+
+        parsed_results.push(parsed_setting);
+    }
+
+    //println!("{:?}", parsed_results);
+
+    if let Some(parsed_setting) = parsed_results.get(0) {
+        if let Some(data_database_url) = parsed_setting.get("data_database_url") {
+            if data_database_url != "data.db" {
+                run_migrations(&data_database_url)
+            }
+            return data_database_url.to_string();
+        } else {
+            return "database url not found in settings".to_string();
+        }
+    } else {
+        return "settings not found".to_string();
+    }
+
 }

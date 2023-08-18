@@ -1,3 +1,5 @@
+use std::fs;
+
 use diesel::sqlite::SqliteConnection;
 use diesel::prelude::*;
 use diesel_migrations::{embed_migrations, EmbeddedMigrations, MigrationHarness};
@@ -7,8 +9,11 @@ pub const MIGRATIONS_DATA: EmbeddedMigrations = embed_migrations!("./migrations_
 pub const MIGRATIONS_SETTINGS: EmbeddedMigrations = embed_migrations!("./migrations_settings");
 
 pub fn data_establish_connection(db_url: &str) -> SqliteConnection {
+    // check if db folder exists, if not, create it
+    check_db_folder().expect("error checking db folder");
+
     // Connecting to the database
-    let database_url = db_url.to_string();
+    let database_url = ("./db/".to_owned() + db_url).to_string();
     SqliteConnection::establish(&database_url)
         .unwrap_or_else(|_| panic!("Error connecting to {}", database_url))
 }
@@ -30,4 +35,19 @@ pub fn run_migrations(db_url: &str) {
         .expect("Message");
     println!("Settings migrations completed");
     println!("All migrations completed successfully");
+}
+
+fn check_db_folder() -> Result<(), std::io::Error> {
+    let folder_path = "./db";
+
+    // Check if the folder exists
+    if !fs::metadata(&folder_path).is_ok() {
+        // Create the folder if it doesn't exist
+        fs::create_dir(&folder_path)?;
+        println!("DB folder created successfully.");
+    } else {
+        println!("DB folder exists.");
+    }
+
+    Ok(())
 }
