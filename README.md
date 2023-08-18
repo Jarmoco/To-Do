@@ -84,7 +84,9 @@
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- Known Issues -->
+<!-- ⚠️ Known Issues -->
+### ⚠️ Knows Issues
+* Tasks are duplicated upon creation
 
 ### ✨ Coming Soon
 * Show who has added a task in the task list
