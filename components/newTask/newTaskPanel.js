@@ -68,6 +68,7 @@ export default function NewTaskPanel() {
 
     useEffect(() => {
         let dbUrl;
+        let author;
 
         invoke('fetch_settings').then(result => {
             // Update the state with the result array
@@ -92,13 +93,14 @@ export default function NewTaskPanel() {
             // Creating an object from the key-value pairs
             const dataObject = Object.fromEntries(keyValuePairs);
             dbUrl = dataObject.data_database_url;
+            author = dataObject.username
         }
 
         if (confirmClicked) {
             invoke('insert', {
                 title: inputValueTitle,
                 content: inputValueDesc,
-                author: "TO-DO",
+                author: author,
                 year: selectedYear,
                 month: selectedMonth,
                 day: selectedDay,

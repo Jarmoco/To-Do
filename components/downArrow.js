@@ -5,7 +5,6 @@ export default function DownArrow() {
     return (
         <Image
             src={downArrowPicture}
-            width={40}
             className={"downArrow"}
             alt='Scroll down Icon'
         />

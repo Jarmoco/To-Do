@@ -17,12 +17,7 @@ use settings_ops::check_settings;
 use settings_ops::get_settings;
 
 fn main() {
-    // read settings
-    //let settings = fetch_settings();
-    // extract the value of the data database from settings
-    //let data_database_url = extract_data_database_url(settings.first().unwrap().as_str()).unwrap();
-
-    //run_migrations(&data_database_url);
+    get_db_url();
     check_settings();
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![fetch_tasks, insert, save_settings, fetch_settings, update_task])
@@ -115,5 +110,26 @@ fn update_task(id: &str, status: bool, db_url: &str) {
             println!("Failed to parse the string as an i32.");
         }
     }
+    
+}
+
+fn get_db_url() {
+    let mut results: Vec<String> = Vec::new();
+
+    match get_settings() {
+        Ok(settings) => {
+            for setting in settings {
+                //println!("{:?}", setting);
+                results.push(setting.to_string());
+            }
+        }
+        Err(e) => eprintln!("Error reading settings: {}", e),
+    }
+    let json_results = serde_json::to_string(&results).expect("Failed to serialize settings as JSON");
+    let parsed_results: Vec<String> =
+        serde_json::from_str(&json_results).expect("Failed to parse settings JSON");
+
+    println!("{:?}", parsed_results);
+
     
 }

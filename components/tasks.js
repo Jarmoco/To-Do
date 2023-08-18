@@ -16,8 +16,8 @@ export default function TaskContainer() {
             year: new Date().getFullYear(),
             month: (new Date().getMonth()) + 1,
             day: new Date().getDate() + 1,
-            //TODO: fix this string
-            dbUrl: "data.db"
+            //TODO fix this
+            dbUrl: "data.db",
         })
             .then(result => {
                 // Update the state with the result array
@@ -28,6 +28,8 @@ export default function TaskContainer() {
                 console.error('Error fetching tasks:', error);
             });
     }, [])
+
+
 
     function renderTasks() {
         if (resultArray.length === 0) {
@@ -41,19 +43,30 @@ export default function TaskContainer() {
             let taskString = resultArray[i].toString()
             taskString = taskString.replace('Task: ', '');
 
-            // Extracting the key-value pairs from the string
-            const keyValuePairs = taskString
-                .split(',')
-                .map((pair) => pair.trim())
-                .map((pair) => pair.split('='))
-                .map(([key, value]) => [key.trim(), value.trim()]);
+            // Split the input string into an array of key-value pairs
+            const keyValuePairs = taskString.split(', ');
 
-            // Creating an object from the key-value pairs
-            const dataObject = Object.fromEntries(keyValuePairs);
-            //console.log(dataObject.is_done)
-            tasks.push(<Task key={i} title={dataObject.title} description={dataObject.content} id={dataObject.id} isDone={JSON.parse(dataObject.is_done)} />)
+            // When a string contains a comma, it gets split, so we re-add the split part back into the 
+            // key-value pair
+            keyValuePairs.forEach((element, index) => {
+                if (!element.includes("=")) {
+                    //console.log(element)
+                    keyValuePairs[index - 1] = keyValuePairs[index - 1] + ", " + element
+                    keyValuePairs.splice(index, 1)
+                }
+            });
+
+            // create an object to store the key-value pairs
+            const keyValueObject = keyValuePairs.reduce((result, item) => {
+                const [key, value] = item.split('=');
+                result[key] = value;
+                return result;
+            }, {});
+
+            //console.log(keyValueObject);
+
+            tasks.push(<Task key={i} title={keyValueObject.title} description={keyValueObject.content} id={keyValueObject.id} isDone={JSON.parse(keyValueObject.is_done)} />)
         }
-
         return tasks
     }
 
@@ -79,7 +92,7 @@ function CheckBox({ task_id, is_done }) {
     const [isChecked, setIsChecked] = useState(is_done);
     useEffect(() => {
 
-        
+
 
         // This code will be executed whenever the checkbox state (isChecked) changes
         if (isChecked) {

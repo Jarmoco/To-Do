@@ -87,7 +87,6 @@
 <!-- Known Issues -->
 ### ⚠️ Known Issues
 * Database URL setting doesn't work properly, don't change it
-* App crashes when loading a task that has a comma (" , ") in its title or description
 
 ### ✨ Coming Soon
 * English language

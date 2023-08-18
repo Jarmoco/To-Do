@@ -64,6 +64,8 @@ html::-webkit-scrollbar {
     animation-duration: 3s;
     animation-iteration-count: infinite;
     animation-timing-function: ease-in-out;
+    width: 2vw;
+    height: 4vh;
 }
 
 @keyframes floating {
