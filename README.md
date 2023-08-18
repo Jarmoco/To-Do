@@ -87,6 +87,7 @@
 <!-- Known Issues -->
 
 ### ✨ Coming Soon
+* Show who has added a task in the task list
 * English language
 * Ability to edit and remove tasks
 * See tasks assigned for other days

@@ -108,7 +108,7 @@ export default function NewTaskPanel() {
                 dbUrl: dbUrl,
             })
         }
-    }, [confirmClicked, inputValueDesc, inputValueTitle, selectedDay, selectedMonth, selectedYear]);
+    }, [confirmClicked, inputValueDesc, inputValueTitle, selectedDay, selectedMonth, selectedYear, settingsArray]);
 
     const [isDaySelectorVisible, setIsDaySelectorVisible] = useState(false);
     const [isMonthSelectorVisible, setIsMonthSelectorVisible] = useState(false);
