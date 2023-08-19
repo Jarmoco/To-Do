@@ -158,3 +158,21 @@
     justify-content: center;
     margin-top: 30%;
 }
+
+.taskAuthor {
+    font-size: 2vh;
+    font-weight: 300;
+    white-space: initial;
+    word-wrap: break-word;
+    margin-right: 2vw;
+    margin-left: 0.5vw;
+    color: #919191;
+}
+
+.authorContainer {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: center;
+}
+

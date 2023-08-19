@@ -8,6 +8,8 @@ import clsx from 'clsx';
 import { useEffect, useState } from 'react'
 import { invoke } from "@tauri-apps/api/tauri"
 
+import UserIcon from "./userIcon";
+
 export default function TaskContainer() {
     const [resultArray, setResultArray] = useState([]);
     let dbUrl;
@@ -73,7 +75,7 @@ export default function TaskContainer() {
 
             //console.log(keyValueObject);
 
-            tasks.push(<Task key={i} title={keyValueObject.title} description={keyValueObject.content} id={keyValueObject.id} isDone={JSON.parse(keyValueObject.is_done)} />)
+            tasks.push(<Task key={i} title={keyValueObject.title} description={keyValueObject.content} id={keyValueObject.id} isDone={JSON.parse(keyValueObject.is_done)} author={keyValueObject.author}/>)
         }
         return tasks
     }
@@ -85,12 +87,16 @@ export default function TaskContainer() {
     )
 }
 
-function Task({ title, description, id, isDone }) {
+function Task({ title, description, id, isDone, author }) {
     return (
         <div className={style.task}>
             <CheckBox task_id={id} is_done={isDone} />
             <h2 className={clsx(style.taskTitle, textFont.className)}>{title}</h2>
             <h3 className={clsx(style.taskDescription, textFont.className)}>{description}</h3>
+            <div className={style.authorContainer}>
+                <UserIcon className={style.userIcon}></UserIcon>
+                <h4 className={clsx(style.taskAuthor, textFont.className)}>{author}</h4>
+            </div>
         </div>
     )
 }
