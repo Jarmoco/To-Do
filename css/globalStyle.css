@@ -68,7 +68,19 @@ html::-webkit-scrollbar {
 }
 
 .titlebar-button:hover {
-    background: #240944;
+    background: #1d0f31;
+}
+
+.titlebar-button:nth-of-type(1):hover > svg {
+    color: rgb(214, 207, 105);
+}
+
+.titlebar-button:nth-of-type(2):hover > svg {
+    color: rgb(105, 214, 110);
+}
+
+.titlebar-button:nth-of-type(3):hover > svg {
+    color: rgb(214, 105, 105);
 }
 
 .downArrow {

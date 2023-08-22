@@ -1,4 +1,5 @@
-import { createContext, useState } from "react"
+import { createContext, useState, useContext } from "react"
+
 
 export const defaultLocale = "en"
 export const locales = ["it", "en"]
@@ -13,3 +14,9 @@ export const LanguageProvider = ({ children }) => {
     </LanguageContext.Provider>
   )
 }
+
+// A custom hook to get the locale and setLocale function
+export const useLanguage = () => {
+  const [locale, setLocale] = useContext(LanguageContext);
+  return { locale, setLocale };
+};

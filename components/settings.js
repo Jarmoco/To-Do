@@ -6,12 +6,20 @@ import { useState, useEffect } from "react";
 import { invoke } from "@tauri-apps/api/tauri"
 import Router from "next/router";
 import useTranslation from "@/intl/translate";
+import React from 'react';
+import { useLanguage } from "@/intl/language";
 
 export default function SettingsContainer() {
     const [resultArray, setResultArray] = useState([]);
     const [dataFetched, setDataFetched] = useState(false);
     let dbUrl;
     let username;
+    let language;
+
+    const { locale, setLocale } = useLanguage();
+    const changeDefaultLocale = (newLocale) => {
+        setLocale(newLocale);
+      };
 
     //Fetch settings from the database
     useEffect(() => {
@@ -44,13 +52,16 @@ export default function SettingsContainer() {
         const dataObject = Object.fromEntries(keyValuePairs);
         dbUrl = dataObject.data_database_url;
         username = dataObject.username;
+        language = dataObject.language;
+
+        changeDefaultLocale(language)
     }
 
     //Save settings to database
-    function saveFunction(d_url, u_name) {
+    function saveFunction(d_url, u_name, language) {
         console.log("saving settings")
-        console.log(d_url + "///" + u_name)
-        invoke('save_settings', {dbUrl: d_url, username: u_name})
+        console.log(d_url + "///" + u_name + "///" + language)
+        invoke('save_settings', { dbUrl: d_url, username: u_name, language: language })
         Router.reload();
     }
 
@@ -58,6 +69,7 @@ export default function SettingsContainer() {
         <div className={style.SettingsContainer}>
             {dataFetched && <DatabaseURLSetting databaseUrl={dbUrl} saveFunction={saveFunction}></DatabaseURLSetting>}
             {dataFetched && <UsernameSetting username={username} saveFunction={saveFunction}></UsernameSetting>}
+            {dataFetched && <LanguageSetting language={language} saveFunction={saveFunction}></LanguageSetting>}
         </div>
     )
 }
@@ -72,10 +84,10 @@ function DatabaseURLSetting({ databaseUrl, saveFunction }) {
 
     return (
         <div className={clsx(style.genericSetting, style.DatabaseURLSetting, textFont.className)}>
-            <h3 className={style.genericSettingTitle}>URL Database</h3>
+            <h3 className={style.genericSettingTitle}>{t("databaseURL")}</h3>
             <div className={style.inputFieldContainer}>
                 <TextInput id="title" placeHolder={t("urlplaceholder")} value={inputDbUrl} onChange={handleInputChange}></TextInput>
-                <SaveButton onClick={saveFunction} dbUrl={inputDbUrl} username={"_"}></SaveButton>
+                <SaveButton onClick={saveFunction} dbUrl={inputDbUrl} username={"_"} language={"_"}></SaveButton>
             </div>
         </div>
     )
@@ -91,23 +103,47 @@ function UsernameSetting({ username, saveFunction }) {
 
     return (
         <div className={clsx(style.genericSetting, style.UsernameSetting, textFont.className)}>
-            <h3 className={style.genericSettingTitle}>Username</h3>
+            <h3 className={style.genericSettingTitle}>{t("username")}</h3>
             <div className={style.inputFieldContainer}>
                 <TextInput id="title" placeHolder={t("usernameplaceholder")} value={inputUsername} onChange={handleInputChange}></TextInput>
-                <SaveButton onClick={saveFunction} dbUrl={"_"} username={inputUsername}></SaveButton>
+                <SaveButton onClick={saveFunction} dbUrl={"_"} username={inputUsername} language={"_"}></SaveButton>
             </div>
         </div>
     )
 }
 
-function SaveButton({onClick, dbUrl, username}) {
+function LanguageSetting({language, saveFunction}) {
+    const { t } = useTranslation()
+
+    const [selectedLanguage, setSelectedValue] = useState(language); // Set the default value
+
+    const handleSelectChange = (event) => {
+        setSelectedValue(event.target.value);
+    };
+
+    return (
+        <div className={clsx(style.genericSetting, style.LanguageSetting, textFont.className)}>
+            <h3 className={style.genericSettingTitle}>{t("language")}</h3>
+            <div className={style.inputFieldContainer}>
+                <select name="cars" id="cars" className={style.languageDropdown} value={selectedLanguage} onChange={handleSelectChange}>
+                    <option value="en">{t("english")}</option>
+                    <option value="it">{t("italian")}</option>
+                </select>
+                <SaveButton onClick={saveFunction} dbUrl={"_"} username={"_"} language={selectedLanguage}></SaveButton>
+            </div>
+        </div>
+    )
+}
+
+function SaveButton({ onClick, dbUrl, username, language }) {
+    const { t } = useTranslation()
     function save() {
-        onClick(dbUrl, username)
+        onClick(dbUrl, username, language)
     }
 
     return (
         <div className={style.SaveButtonOutline}>
-            <button onClick={save} className={clsx(style.SaveButton, textFont.className)}>Salva</button>
+            <button onClick={save} className={clsx(style.SaveButton, textFont.className)}>{t("save")}</button>
         </div>
     )
 }

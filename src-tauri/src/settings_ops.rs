@@ -53,12 +53,12 @@ pub fn check_settings() {
     }
 }
 
-pub fn update_settings(mut u: String, mut durl: Option<String>) {
+pub fn update_settings(mut u: String, mut durl: Option<String>, mut lang: String) {
     //println!("settings update request received");
     let mut connection = settings_establish_connection();
     let query = diesel::update(settings.find(1));
 
-    println!("Updating settings, username: {}, data database url: {:?}", u, durl);
+    println!("Updating settings, username: {}, data database url: {:?}, language: {}", u, durl, lang);
     //What to do if values are empty
     if durl == Some("".to_string()) {
         durl = Some("data.db".to_string());
@@ -68,23 +68,33 @@ pub fn update_settings(mut u: String, mut durl: Option<String>) {
         u = "anonymous".to_string();
     }
 
+    if lang == "".to_string() {
+        lang = "en".to_string();
+    }
+
     // Choose which value needs to be updated
-    if u == "_".to_string() {
+    if durl != Some("_".to_string()) {
         query
             .set(data_database_url.eq(durl))
             .execute(&mut connection)
             .expect("Error while updating settings");
-    } else if durl == Some("_".to_string()) {
+    } else if u != "_".to_string() {
         query
             .set(username.eq(u))
             .execute(&mut connection)
             .expect("Error while updating settings");
-    } else {
+    } else if lang != "_".to_string() {
+        query
+            .set(language.eq(lang))
+            .execute(&mut connection)
+            .expect("Error while updating settings"); 
+    } else if durl != Some("_".to_string()) && u != "_".to_string() && lang != "_".to_string() {
         // Update all settings
         let updated_settings = Setting {
             id: 1,
             data_database_url: durl,
             username: u,
+            language: lang,
         };
 
         query
@@ -97,11 +107,13 @@ pub fn update_settings(mut u: String, mut durl: Option<String>) {
 pub fn init_settings() -> Result<usize, Error> {
     let u: String = "guest".to_string();
     let durl: Option<String> = Some("data.db".to_string());
+    let lang: String = "en".to_string();
 
     let mut connection = settings_establish_connection();
     let new_setting = NewSetting {
         data_database_url: durl,
         username: u,
+        language: lang,
     };
 
     diesel::insert_into(settings)

@@ -5,5 +5,6 @@ diesel::table! {
         id -> Integer,
         data_database_url -> Nullable<Text>,
         username -> Text,
+        language -> Text,
     }
 }

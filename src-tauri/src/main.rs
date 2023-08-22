@@ -74,9 +74,9 @@ fn fetch_tasks(year: u16, month: u8, day: u8, db_url: &str) -> Vec<String> {
 }
 
 #[tauri::command]
-fn save_settings(username: &str, db_url: &str) {
-    println!("saving settings, new url: {}, new username: {}", db_url, username);
-    update_settings(username.to_string(), Some(db_url.to_string()));
+fn save_settings(username: &str, db_url: &str, language: &str) {
+    println!("saving settings, new url: {}, new username: {}, new language: {}", db_url, username, language);
+    update_settings(username.to_string(), Some(db_url.to_string()), language.to_string());
 }
 
 #[tauri::command]
