@@ -5,6 +5,7 @@ import TextInput from "@/components/textInput";
 import { useState, useEffect } from "react";
 import { invoke } from "@tauri-apps/api/tauri"
 import Router from "next/router";
+import useTranslation from "@/intl/translate";
 
 export default function SettingsContainer() {
     const [resultArray, setResultArray] = useState([]);
@@ -62,6 +63,7 @@ export default function SettingsContainer() {
 }
 
 function DatabaseURLSetting({ databaseUrl, saveFunction }) {
+    const { t } = useTranslation()
     const [inputDbUrl, setInputDbUrl] = useState(databaseUrl)
 
     const handleInputChange = (event) => {
@@ -72,7 +74,7 @@ function DatabaseURLSetting({ databaseUrl, saveFunction }) {
         <div className={clsx(style.genericSetting, style.DatabaseURLSetting, textFont.className)}>
             <h3 className={style.genericSettingTitle}>URL Database</h3>
             <div className={style.inputFieldContainer}>
-                <TextInput id="title" placeHolder="URL del database, lascia vuoto per connetterti al database locale" value={inputDbUrl} onChange={handleInputChange}></TextInput>
+                <TextInput id="title" placeHolder={t("urlplaceholder")} value={inputDbUrl} onChange={handleInputChange}></TextInput>
                 <SaveButton onClick={saveFunction} dbUrl={inputDbUrl} username={"_"}></SaveButton>
             </div>
         </div>
@@ -80,6 +82,7 @@ function DatabaseURLSetting({ databaseUrl, saveFunction }) {
 }
 
 function UsernameSetting({ username, saveFunction }) {
+    const { t } = useTranslation()
     const [inputUsername, setInputUsername] = useState(username)
 
     const handleInputChange = (event) => {
@@ -90,7 +93,7 @@ function UsernameSetting({ username, saveFunction }) {
         <div className={clsx(style.genericSetting, style.UsernameSetting, textFont.className)}>
             <h3 className={style.genericSettingTitle}>Username</h3>
             <div className={style.inputFieldContainer}>
-                <TextInput id="title" placeHolder="Nome utente, lascia vuoto per rimanere anonimo" value={inputUsername} onChange={handleInputChange}></TextInput>
+                <TextInput id="title" placeHolder={t("usernameplaceholder")} value={inputUsername} onChange={handleInputChange}></TextInput>
                 <SaveButton onClick={saveFunction} dbUrl={"_"} username={inputUsername}></SaveButton>
             </div>
         </div>

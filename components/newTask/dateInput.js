@@ -1,6 +1,7 @@
 import style from "@/css/dateInput.module.css"
 import { textFont } from "../fonts"
 import clsx from 'clsx';
+import useTranslation from "@/intl/translate";
 
 export function DayInput({selectedDay, onClick}) {
     return (
@@ -11,25 +12,26 @@ export function DayInput({selectedDay, onClick}) {
 }
 
 export function MonthInput({selectedMonth, onClick}) {
+    const { t } = useTranslation()
 
-    let mese
+    let month
 
-    if (selectedMonth == 1) mese = "Gennaio"
-    if (selectedMonth == 2) mese = "Febbraio"
-    if (selectedMonth == 3) mese = "Marzo"
-    if (selectedMonth == 4) mese = "Aprile"
-    if (selectedMonth == 5) mese = "Maggio"
-    if (selectedMonth == 6) mese = "Giugno"
-    if (selectedMonth == 7) mese = "Luglio"
-    if (selectedMonth == 8) mese = "Agosto"
-    if (selectedMonth == 9) mese = "Settembre"
-    if (selectedMonth == 10) mese = "Ottobre"
-    if (selectedMonth == 11) mese = "Novembre"
-    if (selectedMonth == 12) mese = "Dicembre"
+    if (selectedMonth == 1) month = t("january")
+    if (selectedMonth == 2) month = t("february")
+    if (selectedMonth == 3) month = t("march")
+    if (selectedMonth == 4) month = t("april")
+    if (selectedMonth == 5) month = t("may")
+    if (selectedMonth == 6) month = t("june")
+    if (selectedMonth == 7) month = t("july")
+    if (selectedMonth == 8) month = t("august")
+    if (selectedMonth == 9) month = t("september")
+    if (selectedMonth == 10) month = t("october")
+    if (selectedMonth == 11) month = t("november")
+    if (selectedMonth == 12) month = t("december")
 
     return (
         <div onClick={onClick}>
-            <h2 className={clsx(style.genericInput, style.monthInput, textFont.className)}>{mese}</h2>
+            <h2 className={clsx(style.genericInput, style.monthInput, textFont.className)}>{month}</h2>
         </div>
     )
 }

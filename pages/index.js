@@ -17,10 +17,13 @@ import Link from 'next/link';
 
 import SettingsContainer from "@/components/settings";
 import dynamic from 'next/dynamic';
+import useTranslation from "@/intl/translate";
 
 
 //------------------------------------------//
 export default function Page() {
+    const { t } = useTranslation()
+
     const DynamicCustomTitleBar = dynamic(() => import('@/components/titlebar'), {
         ssr: false,
       });
@@ -29,15 +32,14 @@ export default function Page() {
     return (
         <div className={style.sectionsContainer}>
             <DynamicCustomTitleBar />
-
-
-            <MainSection title={"Benvenuto"} />
-            <SettingsSection title={"Impostazioni"} />
+            <MainSection title={t("welcome")} />
+            <SettingsSection title={t("settings")} />
         </div>
     )
 }
 
 function MainSection({ title }) {
+    const { t } = useTranslation()
     return (
         <div className={style.section}>
             <Blob1 posY="20%" />
@@ -46,7 +48,7 @@ function MainSection({ title }) {
             <TaskContainer />
             <div className={style.sectionButtonOutline}>
                 <button className={clsx(style.sectionButton, textFont.className)}>
-                    <Link href="newTask" className={clsx(style.link, textFont.className)}>Nuovo compito </Link>
+                    <Link href="newTask" className={clsx(style.link, textFont.className)}>{t("newtaskbuttonlabel")}</Link>
                 </button>
             </div>
             <DownArrow></DownArrow>

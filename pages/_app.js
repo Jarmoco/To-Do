@@ -1,6 +1,6 @@
 //import global css
 import "../css/globalStyle.css"
-
+import { LanguageProvider } from "@/intl/language";
 import { useEffect } from 'react'
 
 function App({ Component, pageProps }) {
@@ -19,8 +19,13 @@ function App({ Component, pageProps }) {
             document.removeEventListener('contextmenu', handleContextMenu);
         };
     }, []);
-    
-    return <Component {...pageProps} />
+
+    return (
+        <LanguageProvider>
+            <Component {...pageProps} />
+        </LanguageProvider>
+    )
+
 }
 
 export default App

@@ -14,8 +14,10 @@ import { MonthSelector } from "./monthSelector";
 import { YearSelector } from "./yearSelector";
 
 import { invoke } from "@tauri-apps/api/tauri"
+import useTranslation from "@/intl/translate";
 
 export default function NewTaskPanel() {
+    const { t } = useTranslation()
     //Check if current day is the last of the month
     let dayOffset = 1
     let monthOffset = 1
@@ -161,9 +163,9 @@ export default function NewTaskPanel() {
         <div className={style.container}>
             <Blob3></Blob3>
             <div className={style.newTaskPanel}>
-                <h1 className={clsx(titleFont.className, style.newTaskPanelTitle)}>Nuovo compito</h1>
-                <TextInput id="title" placeHolder="Titolo" value={inputValueTitle} onChange={handleInputChangeTitle}></TextInput>
-                <TextArea id="content" placeHolder="Descrizione" value={inputValueDesc} onChange={handleInputChangeDesc}></TextArea>
+                <h1 className={clsx(titleFont.className, style.newTaskPanelTitle)}>{t("newtask")}</h1>
+                <TextInput id="title" placeHolder={t("title")} value={inputValueTitle} onChange={handleInputChangeTitle}></TextInput>
+                <TextArea id="content" placeHolder={t("description")} value={inputValueDesc} onChange={handleInputChangeDesc}></TextArea>
                 <div className={style.dateInputsContainer}>
                     <DayInput selectedDay={selectedDay} onClick={handleDayInputClick} />
                     <MonthInput selectedMonth={selectedMonth} onClick={handleMonthInputClick} />
@@ -201,17 +203,19 @@ export default function NewTaskPanel() {
 
 
 function CancelButton() {
+    const { t } = useTranslation()
     return (
         <button className={clsx(style.CancelButton, textFont.className)}>
-            <Link href="/">Annulla</Link>
+            <Link href="/">{t("cancel")}</Link>
         </button>
     )
 }
 
 function ConfirmButton({ onClick }) {
+    const { t } = useTranslation()
     return (
         <button className={clsx(style.ConfirmButton, textFont.className)} onClick={onClick}>
-            <Link href="/">Aggiungi</Link>
+            <Link href="/">{t("add")}</Link>
         </button>
     )
 }
