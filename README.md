@@ -10,9 +10,6 @@
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
 
-> **Warning**
-> This app is available only in **Italian**. An English translation is not yet available.
-
 <!--
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
