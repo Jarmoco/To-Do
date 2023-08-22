@@ -4,6 +4,7 @@ import clsx from 'clsx';
 import TextInput from "@/components/textInput";
 import { useState, useEffect } from "react";
 import { invoke } from "@tauri-apps/api/tauri"
+import Router from "next/router";
 
 export default function SettingsContainer() {
     const [resultArray, setResultArray] = useState([]);
@@ -49,6 +50,7 @@ export default function SettingsContainer() {
         console.log("saving settings")
         console.log(d_url + "///" + u_name)
         invoke('save_settings', {dbUrl: d_url, username: u_name})
+        Router.reload();
     }
 
     return (

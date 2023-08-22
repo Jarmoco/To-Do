@@ -49,7 +49,6 @@
         "signingIdentity": null
       },
       "resources": [
-        ".env"
       ],
       "shortDescription": "",
       "targets": "all",
@@ -75,8 +74,8 @@
         "resizable": true,
         "title": "To Do",
         "width": 800,
-        "decorations": true,
-        "transparent": false
+        "decorations": false,
+        "transparent": true
       }
     ]
   }

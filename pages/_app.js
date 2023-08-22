@@ -6,6 +6,8 @@ import { useEffect } from 'react'
 function App({ Component, pageProps }) {
     // Disable the default right click menu
     useEffect(() => {
+
+
         const handleContextMenu = (event) => {
             event.preventDefault();
         };

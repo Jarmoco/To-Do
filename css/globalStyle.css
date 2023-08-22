@@ -6,7 +6,9 @@ body {
     width: 100%;
     margin: 0;
     padding: 0;
+    border-radius: 10px; /* whatever you want */
 }
+
 
 /* If you want to keep the margins on the body and don't want scroll bars, use the following css: */
 html {
@@ -35,8 +37,7 @@ html::-webkit-scrollbar {
 
 /* CUSTOM TITLEBAR */
 .titlebar {
-    height: 30px;
-    background: #329ea3;
+    height: 33px;
     user-select: none;
     display: flex;
     justify-content: flex-end;
@@ -52,10 +53,22 @@ html::-webkit-scrollbar {
     align-items: center;
     width: 30px;
     height: 30px;
+    background: transparent;
+    color: #fffbfe;
+    outline: none;
+    border: none;
+    margin-right: 1.5vw;
+    border-radius: 5px;
+    margin-top: 0.3vh;
+
+}
+
+.titlebar-button svg {
+    margin-top: 0.1vh;
 }
 
 .titlebar-button:hover {
-    background: #5bbec3;
+    background: #240944;
 }
 
 .downArrow {
@@ -78,3 +91,4 @@ html::-webkit-scrollbar {
     height: 2vh;
     width: auto;
 }
+

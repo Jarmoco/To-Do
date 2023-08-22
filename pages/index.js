@@ -16,15 +16,22 @@ import { textFont } from "@/components/fonts"
 import Link from 'next/link';
 
 import SettingsContainer from "@/components/settings";
-import { useEffect, useState } from "react";
-import { invoke } from "@tauri-apps/api/tauri";
+import dynamic from 'next/dynamic';
 
 
 //------------------------------------------//
 export default function Page() {
+    const DynamicCustomTitleBar = dynamic(() => import('@/components/titlebar'), {
+        ssr: false,
+      });
+
+      
     return (
         <div className={style.sectionsContainer}>
-            <MainSection title={"Benvenuto"}/>
+            <DynamicCustomTitleBar />
+
+
+            <MainSection title={"Benvenuto"} />
             <SettingsSection title={"Impostazioni"} />
         </div>
     )
@@ -36,7 +43,7 @@ function MainSection({ title }) {
             <Blob1 posY="20%" />
             <Blob color="#6E3BDB" posX="50vw" posY="47%" size="20vw" />
             <Title title={title} />
-            <TaskContainer/>
+            <TaskContainer />
             <div className={style.sectionButtonOutline}>
                 <button className={clsx(style.sectionButton, textFont.className)}>
                     <Link href="newTask" className={clsx(style.link, textFont.className)}>Nuovo compito </Link>

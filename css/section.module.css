@@ -5,6 +5,7 @@
 /* Window style */
 .app {
     border-radius: 10px;
+    overflow: auto;
 }
 
 .section {
@@ -16,6 +17,7 @@
     align-items: center;
     height: 100vh;
     scroll-snap-align: center;
+    overflow: auto;
 }
 
 .sectionTitle {
