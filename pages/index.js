@@ -18,6 +18,7 @@ import Link from 'next/link';
 import SettingsContainer from "@/components/settings";
 import dynamic from 'next/dynamic';
 import useTranslation from "@/intl/translate";
+import CtrlPressDetector from "@/components/ctrlpress";
 
 
 //------------------------------------------//
@@ -26,9 +27,9 @@ export default function Page() {
 
     const DynamicCustomTitleBar = dynamic(() => import('@/components/titlebar'), {
         ssr: false,
-      });
+    });
 
-      
+
     return (
         <div className={style.sectionsContainer}>
             <DynamicCustomTitleBar />
@@ -40,18 +41,20 @@ export default function Page() {
 
 function MainSection({ title }) {
     const { t } = useTranslation()
+
     return (
         <div className={style.section}>
             <Blob1 posY="20%" />
             <Blob color="#6E3BDB" posX="50vw" posY="47%" size="20vw" />
             <Title title={title} />
-            <TaskContainer />
+            <TaskContainer editmode="false"/>
             <div className={style.sectionButtonOutline}>
                 <button className={clsx(style.sectionButton, textFont.className)}>
                     <Link href="newTask" className={clsx(style.link, textFont.className)}>{t("newtaskbuttonlabel")}</Link>
                 </button>
             </div>
             <DownArrow></DownArrow>
+            <CtrlPressDetector />
         </div>
     )
 }

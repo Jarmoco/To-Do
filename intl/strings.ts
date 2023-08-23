@@ -29,6 +29,8 @@ export const LangStrings = {
     italian: "Italian",
     language: "Language",
     nothingtoseehere: "Nothing to see here.",
+    edittitle: "Edit",
+    pressCTRL: "Long-press CTRL to go back",
   },
   it: {
     welcome: "Benvenuto",
@@ -60,5 +62,7 @@ export const LangStrings = {
     italian: "Italiano",
     language: "Lingua",
     nothingtoseehere: "Niente da vedere qui.",
+    edittitle: "Modifica",
+    pressCTRL: "Tieni premuto CTRL per tornare indietro",
   },
 }

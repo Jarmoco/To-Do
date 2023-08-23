@@ -27,7 +27,12 @@
     margin-left: 2vw;
 }
 
-.taskContainer {
+.task input {
+    margin-right: 1vw;
+}
+
+.taskContainer,
+.taskContainerEdit {
     width: auto;
     min-width: 35vw;
     min-height: 45vh;
@@ -44,26 +49,30 @@
 }
 
 /* width */
-.taskContainer::-webkit-scrollbar {
+.taskContainer::-webkit-scrollbar,
+.taskContainerEdit::-webkit-scrollbar {
     display: none;
     width: 0.6vw;
 }
 
 /* Track */
-.taskContainer::-webkit-scrollbar-track {
+.taskContainer::-webkit-scrollbar-track,
+.taskContainerEdit::-webkit-scrollbar-track {
     background: transparent;
     border: 10px solid transparent;
 }
 
 /* Handle */
-.taskContainer::-webkit-scrollbar-thumb {
+.taskContainer::-webkit-scrollbar-thumb,
+.taskContainerEdit::-webkit-scrollbar-thumb {
     background: #2c1c3f;
     border-radius: 8px;
     border: 0.2vw solid rgba(59, 45, 79, 0.7);
 }
 
 /* Handle on hover */
-.taskContainer::-webkit-scrollbar-thumb:hover {
+.taskContainer::-webkit-scrollbar-thumb:hover,
+.taskContainerEdit::-webkit-scrollbar-thumb:hover {
     background: #555;
 }
 
@@ -159,7 +168,8 @@
     margin-top: 30%;
 }
 
-.taskAuthor {
+.taskAuthor,
+.taskAuthorEdit {
     font-size: 2vh;
     font-weight: 300;
     white-space: initial;
@@ -167,6 +177,10 @@
     margin-right: 2vw;
     margin-left: 0.5vw;
     color: #919191;
+}
+
+.taskAuthorEdit {
+    margin-right: 1vw; 
 }
 
 .authorContainer {

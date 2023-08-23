@@ -10,8 +10,10 @@ import { invoke } from "@tauri-apps/api/tauri"
 
 import UserIcon from "./userIcon";
 import useTranslation from "@/intl/translate";
+import TextInput from "@/components/textInput";
+import DragHandle from "./dragHandle";
 
-export default function TaskContainer() {
+export default function TaskContainer({ editmode }) {
     const [resultArray, setResultArray] = useState([]);
     let dbUrl;
 
@@ -74,17 +76,30 @@ export default function TaskContainer() {
                 return result;
             }, {});
 
-            //console.log(keyValueObject);
+            if (editmode != "true") {
+                tasks.push(<Task key={i} title={keyValueObject.title} description={keyValueObject.content} id={keyValueObject.id} isDone={JSON.parse(keyValueObject.is_done)} author={keyValueObject.author} />)
+            } else {
+                tasks.push(<EditableTask key={i} title={keyValueObject.title} description={keyValueObject.content} id={keyValueObject.id} isDone={JSON.parse(keyValueObject.is_done)} author={keyValueObject.author} />)
+            }
 
-            tasks.push(<Task key={i} title={keyValueObject.title} description={keyValueObject.content} id={keyValueObject.id} isDone={JSON.parse(keyValueObject.is_done)} author={keyValueObject.author}/>)
+
+
         }
         return tasks
     }
 
     return (
-        <div className={style.taskContainer}>
-            {renderTasks()}
-        </div>
+        <>
+            {editmode ? (
+                <div className={style.taskContainerEdit}>
+                    {renderTasks()}
+                </div>
+            ) : (
+                <div className={style.taskContainer}>
+                    {renderTasks()}
+                </div>
+            )}
+        </>
     )
 }
 
@@ -102,6 +117,20 @@ function Task({ title, description, id, isDone, author }) {
     )
 }
 
+function EditableTask({ title, description, author }) {
+    return (
+        <div className={style.task}>
+            <TextInput id="title" value={title} width="20"></TextInput>
+            <TextInput id="description" value={description} width="20"></TextInput>
+            <div className={style.authorContainer}>
+                <UserIcon className={style.userIcon}></UserIcon>
+                <h4 className={clsx(style.taskAuthorEdit, textFont.className)}>{author}</h4>
+            </div>
+            <DragHandle></DragHandle>
+        </div>
+    )
+}
+
 // Custom checkbox component
 function CheckBox({ task_id, is_done }) {
     const [isChecked, setIsChecked] = useState(is_done);
@@ -109,7 +138,7 @@ function CheckBox({ task_id, is_done }) {
 
     useEffect(() => {
         invoke('get_db_url').then(result => {
-            dbUrl=result
+            dbUrl = result
             // This code will be executed whenever the checkbox state (isChecked) changes
             if (isChecked) {
                 //console.log('Checkbox is checked');
