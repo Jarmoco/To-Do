@@ -86,7 +86,7 @@ function DatabaseURLSetting({ databaseUrl, saveFunction }) {
         <div className={clsx(style.genericSetting, style.DatabaseURLSetting, textFont.className)}>
             <h3 className={style.genericSettingTitle}>{t("databaseURL")}</h3>
             <div className={style.inputFieldContainer}>
-                <TextInput id="title" placeHolder={t("urlplaceholder")} value={inputDbUrl} onChange={handleInputChange} width="20"></TextInput>
+                <TextInput id="title" placeHolder={t("urlplaceholder")} value={inputDbUrl} onChange={handleInputChange} width="18"></TextInput>
                 <SaveButton onClick={saveFunction} dbUrl={inputDbUrl} username={"_"} language={"_"}></SaveButton>
             </div>
         </div>
