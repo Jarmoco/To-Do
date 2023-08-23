@@ -59,7 +59,7 @@ html::-webkit-scrollbar {
     margin-right: 1.5vw;
     border-radius: 0.5vw;
     margin-top: 0.3vh;
-
+    animation: fadeIn 1s;
 }
 
 .titlebar-button svg {
@@ -108,4 +108,9 @@ html::-webkit-scrollbar {
     width: auto;
     margin-right: 1vw;
     cursor: pointer;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
 }
