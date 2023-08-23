@@ -1,15 +1,14 @@
 .textInput {
     font-size: 2vh;
-    width: 35vw;
     height: 3vh;
     padding: 2%;
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
     background-color: rgba(24, 14, 37, 0.9);
     border-radius: 12px;
-    box-shadow: 0px 0px 30px 5px rgba(72, 56, 96, 0.5) inset;
-    outline: none;
     border: none;
+    outline: none;
+    border-bottom: 1px solid #50316f;
     color: white;
 }
 

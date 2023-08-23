@@ -164,8 +164,8 @@ export default function NewTaskPanel() {
             <Blob3></Blob3>
             <div className={style.newTaskPanel}>
                 <h1 className={clsx(titleFont.className, style.newTaskPanelTitle)}>{t("newtask")}</h1>
-                <TextInput id="title" placeHolder={t("title")} value={inputValueTitle} onChange={handleInputChangeTitle}></TextInput>
-                <TextArea id="content" placeHolder={t("description")} value={inputValueDesc} onChange={handleInputChangeDesc}></TextArea>
+                <TextInput id="title" placeHolder={t("title")} value={inputValueTitle} onChange={handleInputChangeTitle} width="35"></TextInput>
+                <TextArea id="content" placeHolder={t("description")} value={inputValueDesc} onChange={handleInputChangeDesc}  width="35"></TextArea>
                 <div className={style.dateInputsContainer}>
                     <DayInput selectedDay={selectedDay} onClick={handleDayInputClick} />
                     <MonthInput selectedMonth={selectedMonth} onClick={handleMonthInputClick} />

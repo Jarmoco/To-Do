@@ -2,7 +2,7 @@ import style from "../css/textInput.module.css"
 import { textFont } from "./fonts"
 import clsx from 'clsx';
 
-export default function TextInput({id, placeHolder, value, onChange}) {
+export default function TextInput({id, placeHolder, value, onChange, width}) {
     return(
         <>
             <input 
@@ -13,12 +13,13 @@ export default function TextInput({id, placeHolder, value, onChange}) {
                 className={clsx(style.textInput, textFont.className)}
                 value={value} 
                 onChange={onChange}
+                style={{width: width + 'vw'}}
             />
         </>
     )
 }
 
-export function TextArea({id, placeHolder, value, onChange}) {
+export function TextArea({id, placeHolder, value, onChange, width}) {
     return(
         <>
             <textarea 
@@ -30,6 +31,7 @@ export function TextArea({id, placeHolder, value, onChange}) {
                 rows="4" cols="50"
                 value={value} 
                 onChange={onChange}
+                style={{width: width + 'vw'}}
             ></textarea>
         </>
     )

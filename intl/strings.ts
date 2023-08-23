@@ -28,6 +28,7 @@ export const LangStrings = {
     english: "English",
     italian: "Italian",
     language: "Language",
+    nothingtoseehere: "Nothing to see here.",
   },
   it: {
     welcome: "Benvenuto",
@@ -58,5 +59,6 @@ export const LangStrings = {
     english: "Inglese",
     italian: "Italiano",
     language: "Lingua",
+    nothingtoseehere: "Niente da vedere qui.",
   },
 }

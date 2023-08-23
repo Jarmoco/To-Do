@@ -9,6 +9,7 @@ import { useEffect, useState } from 'react'
 import { invoke } from "@tauri-apps/api/tauri"
 
 import UserIcon from "./userIcon";
+import useTranslation from "@/intl/translate";
 
 export default function TaskContainer() {
     const [resultArray, setResultArray] = useState([]);
@@ -137,9 +138,10 @@ function CheckBox({ task_id, is_done }) {
 }
 
 function EmptySign() {
+    const { t } = useTranslation()
     return (
         <h1 className={clsx(style.EmptySign, textFont.className)}>
-            Niente da vedere qui.
+            {t("nothingtoseehere")}
         </h1>
     )
 }

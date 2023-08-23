@@ -1,14 +1,17 @@
 .genericSetting {
     background-color: rgba(23, 13, 36, 0.8);
+    width: -moz-fit-content;
     width: fit-content;
     height: 15vh;
     display: flex;
     flex-direction: column;
-    padding-left: 8%;
-    padding-right: 8%;
-    padding-bottom: 5%;
-    padding-top: 3%;
+    padding-left: 4%;
+    padding-right: 4%;
+    padding-bottom: 3%;
+    padding-top: 1%;
     border-radius: 15px;
+    margin-left: 0.5vw;
+    margin-right: 0.5vw;
 }
 
 .genericSettingTitle {
@@ -16,7 +19,12 @@
 }
 
 .SettingsContainer {
+    width: 85%;
     z-index: 9999;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-bottom: 10%;
 }
 
 .textInput {
@@ -41,6 +49,10 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+}
+
+.inputFieldContainer input {
+    height: 5vh;
 }
 
 .SaveButton {
@@ -74,15 +86,13 @@
     box-shadow: 0px 0px 100px 0px rgba(166, 107, 255, 0.5);
 }
 
-
-
 .languageDropdown {
     background-color: rgba(24, 14, 37, 0.9);
-    box-shadow: 0px 0px 30px 5px rgba(72, 56, 96, 0.5) inset;
     color: white;
     outline: none;
     border: none;
-    width: 35vw;
+    border-bottom: 1px solid #50316f;
+    width: 10vw;
     padding-left: 1%;
     height: 6vh;
     font-size: 2vh;

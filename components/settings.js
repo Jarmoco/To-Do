@@ -86,7 +86,7 @@ function DatabaseURLSetting({ databaseUrl, saveFunction }) {
         <div className={clsx(style.genericSetting, style.DatabaseURLSetting, textFont.className)}>
             <h3 className={style.genericSettingTitle}>{t("databaseURL")}</h3>
             <div className={style.inputFieldContainer}>
-                <TextInput id="title" placeHolder={t("urlplaceholder")} value={inputDbUrl} onChange={handleInputChange}></TextInput>
+                <TextInput id="title" placeHolder={t("urlplaceholder")} value={inputDbUrl} onChange={handleInputChange} width="20"></TextInput>
                 <SaveButton onClick={saveFunction} dbUrl={inputDbUrl} username={"_"} language={"_"}></SaveButton>
             </div>
         </div>
@@ -105,7 +105,7 @@ function UsernameSetting({ username, saveFunction }) {
         <div className={clsx(style.genericSetting, style.UsernameSetting, textFont.className)}>
             <h3 className={style.genericSettingTitle}>{t("username")}</h3>
             <div className={style.inputFieldContainer}>
-                <TextInput id="title" placeHolder={t("usernameplaceholder")} value={inputUsername} onChange={handleInputChange}></TextInput>
+                <TextInput id="title" placeHolder={t("usernameplaceholder")} value={inputUsername} onChange={handleInputChange}  width="10"></TextInput>
                 <SaveButton onClick={saveFunction} dbUrl={"_"} username={inputUsername} language={"_"}></SaveButton>
             </div>
         </div>
