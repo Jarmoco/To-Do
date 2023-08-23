@@ -18,7 +18,7 @@
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
     background-color: rgba(24, 14, 37, 0.97);
-    border-radius: 20px;
+    border-radius: 2vw;
     box-shadow: 2px -10px 48px 9px rgba(59, 45, 79, 0.7) inset;
 
 }
@@ -52,7 +52,7 @@
     display: flex;
     height: 7vh;
     width: 10vw;
-    border-radius: 10px;
+    border-radius: 1vw;
     outline: none;
     align-items: center;
     justify-content: center;
