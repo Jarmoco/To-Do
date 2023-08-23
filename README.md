@@ -35,6 +35,8 @@
     <a href="https://github.com/armadio2902/To-Do/issues">Report Bug</a>
     ·
     <a href="https://github.com/armadio2902/To-Do/issues">Request Feature</a>
+    ·
+    <a href="https://github.com/armadio2902/To-Do/releases">Download</a>
   </p>
 </div>
 
