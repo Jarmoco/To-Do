@@ -19,10 +19,21 @@ use settings_ops::update_settings;
 use settings_ops::check_settings;
 use settings_ops::get_settings;
 
+use window_shadows::set_shadow;
+
+use tauri::Manager;
+
 
 fn main() {
+    #[cfg(any(windows, target_os = "windows"))]
+
     check_settings();
     tauri::Builder::default()
+        .setup(|app| {
+            let window = app.get_window("main").unwrap();
+            set_shadow(&window, true).expect("Unsupported platform!");
+            Ok(())
+          })
         .invoke_handler(tauri::generate_handler![fetch_tasks, insert, save_settings, fetch_settings, update_task, get_db_url])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

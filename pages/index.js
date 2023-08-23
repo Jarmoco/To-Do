@@ -70,6 +70,7 @@ function SettingsSection({ title }) {
     )
 }
 
+
 // Background colored light blobs
 function Blob({ color, posX, posY, size }) {
     return (

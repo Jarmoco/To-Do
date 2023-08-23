@@ -4,21 +4,21 @@
 
 /* Window style */
 .app {
-    border-radius: 10px;
     overflow: auto;
 }
 
 .section,
 .sectionEdit {
+    box-sizing: border-box;
     background-repeat: no-repeat;
     background: radial-gradient(circle at center, #1A0732 0, black 100%);
     display: flex;
     justify-content: space-evenly;
     flex-direction: column;
     align-items: center;
-    height: 100vh;
     scroll-snap-align: center;
     overflow: auto;
+    height: 100vh;
 }
 
 
