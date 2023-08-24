@@ -11,9 +11,9 @@ import { invoke } from "@tauri-apps/api/tauri"
 import UserIcon from "./userIcon";
 import useTranslation from "@/intl/translate";
 import TextInput from "@/components/textInput";
-import DragHandle from "./dragHandle";
 import SaveIcon from "./saveIcon";
 import { useRouter } from 'next/router';
+import TrashBinIcon from "./trashBinIcon";
 
 export default function TaskContainer({ editmode }) {
     const [resultArray, setResultArray] = useState([]);
@@ -135,7 +135,6 @@ function EditableTask({ title, description, author, id }) {
 
     function save_edit() {
         invoke('get_db_url').then(result => {
-
             invoke('edit_task', {
                 id: id,
                 title: inputTitle,
@@ -143,11 +142,19 @@ function EditableTask({ title, description, author, id }) {
                 dbUrl: result
             }
             )
-
             router.push('/');
         })
+    }
 
-
+    function delete_task_function() {
+        invoke('get_db_url').then(result => {
+            invoke('delete_task', {
+                id: id,
+                dbUrl: result
+            }
+            )
+            router.push('/');
+        })
     }
 
 
@@ -168,14 +175,19 @@ function EditableTask({ title, description, author, id }) {
                 <h4 className={clsx(style.taskAuthorEdit, textFont.className)}>{author}</h4>
             </div>
 
-            <DragHandle ></DragHandle>
+            <button onClick={delete_task_function} className={style.deleteTaskButton}>
+                <TrashBinIcon ></TrashBinIcon>
+            </button>
+            
         </div>
     )
 }
 
 // Custom checkbox component
 function CheckBox({ task_id, is_done }) {
+
     const [isChecked, setIsChecked] = useState(is_done);
+
     let dbUrl;
 
     useEffect(() => {
@@ -196,6 +208,9 @@ function CheckBox({ task_id, is_done }) {
 
     const handleCheckboxChange = () => {
         setIsChecked(!isChecked); // Toggle the checkbox state
+        if (isChecked == false) {
+            new Audio("res/check.mp3").play()
+        }
     };
 
     return (

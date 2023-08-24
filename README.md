@@ -143,6 +143,7 @@ Project Link: [https://github.com/armadio2902/To-Do](https://github.com/armadio2
 ## 🤝Acknowledgments
 
 * [Othneil Drew](https://github.com/othneildrew) for the [Readme template](https://github.com/othneildrew/Best-README-Template)
+* [Hilmy Abiyyu A.](https://www.flaticon.com/authors/hilmy-abiyyu-a) for the [Recycle Bin Icon](https://www.flaticon.com/free-icon/recycle-bin_7491835?term=trash+bin&page=1&position=54&origin=tag&related_id=7491835)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

@@ -224,6 +224,7 @@
     }
 }
 
+.deleteTaskButton,
 .saveEditButton {
     margin-top: 1vh;
     margin-right: 1vw;

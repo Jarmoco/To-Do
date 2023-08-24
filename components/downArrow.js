@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import downArrowPicture from '@/res/downArrow.png'
+import downArrowPicture from '@/public/res/downArrow.png'
 
 export default function DownArrow() {
     return (

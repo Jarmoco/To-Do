@@ -74,3 +74,17 @@ pub fn edit(id: i32, title: &str, description: &str, database_url: &str) {
 
     println!("Updated rows: {}", updated_row);
 }
+
+pub fn delete(id: i32, database_url: &str) {
+    let mut connection = data_establish_connection(database_url);
+    
+    println!("Deleting task, id: {}", id);
+
+    // Delete a row
+    let deleted_row = diesel::delete(tasks::table)
+    .filter(tasks::id.eq(id)) // Deletion condition
+    .execute(&mut connection)
+    .expect("Error deleting row");
+
+    println!("Deleted rows: {}", deleted_row);
+}

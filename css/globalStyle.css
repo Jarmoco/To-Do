@@ -115,6 +115,12 @@ html::-webkit-scrollbar {
     width: auto;
 }
 
+.trashBinIcon {
+    height: 3vh;
+    width: auto;
+    cursor: pointer;
+}
+
 @keyframes fadeIn {
     0% { opacity: 0; }
     100% { opacity: 1; }

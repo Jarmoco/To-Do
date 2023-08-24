@@ -16,6 +16,7 @@ use task_ops::get_tasks;
 use task_ops::insert_task;
 use task_ops::update;
 use task_ops::edit;
+use task_ops::delete;
 use settings_ops::update_settings;
 use settings_ops::check_settings;
 use settings_ops::get_settings;
@@ -35,7 +36,7 @@ fn main() {
             set_shadow(&window, true).expect("Unsupported platform!");
             Ok(())
           })
-        .invoke_handler(tauri::generate_handler![fetch_tasks, insert, save_settings, fetch_settings, update_task, edit_task, get_db_url])
+        .invoke_handler(tauri::generate_handler![fetch_tasks, insert, save_settings, fetch_settings, update_task, edit_task, delete_task, get_db_url])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
@@ -141,6 +142,20 @@ fn edit_task(id: &str, db_url: &str, title: &str, description: &str) {
         }
     }
     
+}
+
+#[tauri::command]
+fn delete_task(id: &str, db_url: &str) {
+    let parsed_id: Result<i32, _> = id.parse();
+
+    match parsed_id {
+        Ok(parsed) => {
+            delete(parsed, db_url);
+        }
+        Err(_) => {
+            println!("Failed to parse the string as an i32.");
+        }
+    }
 }
 
 #[tauri::command]

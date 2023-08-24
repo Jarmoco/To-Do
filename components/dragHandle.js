@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import dragHandlePicture from '@/res/dragHandle.png'
+import dragHandlePicture from '@/public/res/dragHandle.png'
 
 export default function DragHandle() {
     return (

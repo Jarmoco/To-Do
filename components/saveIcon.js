@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import saveIconPicture from '@/res/saveIcon.png'
+import saveIconPicture from '@/public/res/saveIcon.png'
 
 export default function SaveIcon() {
     return (
