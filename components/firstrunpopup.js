@@ -37,6 +37,7 @@ export default function FirstRunPopUp() {
                         <button className={style.closeButton} onClick={handleRemoveClick}>{t("close")}</button>
                     </div>
                 </div>
+                <p>Close and re-open the app if this popup keeps appearing</p>
             </div>
         </div>
 

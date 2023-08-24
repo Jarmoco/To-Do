@@ -84,9 +84,10 @@
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ⚠️ Known Issues -->
+### ⚠️ Known Issues
+* Weird scrolling when "Before starting" popup is open
 
 ### ✨ Coming Soon
-* Ability to edit and remove tasks
 * See tasks assigned for other days
 
 <!-- GETTING STARTED -->
