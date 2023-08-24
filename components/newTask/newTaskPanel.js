@@ -101,7 +101,7 @@ export default function NewTaskPanel() {
         if (confirmClicked) {
             invoke('insert', {
                 title: inputValueTitle,
-                content: inputValueDesc,
+                description: inputValueDesc,
                 author: author,
                 year: selectedYear,
                 month: selectedMonth,

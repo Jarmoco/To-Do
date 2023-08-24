@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-const CtrlPressDetector = () => {
-    const router = useRouter();
+const CtrlPressDetector = ({isEditMode}) => {
+  const router = useRouter();
   const [ctrlPressed, setCtrlPressed] = useState(false);
   const [startTime, setStartTime] = useState(null);
 
@@ -26,8 +26,13 @@ const CtrlPressDetector = () => {
         const currentTime = Date.now();
         const duration = currentTime - startTime;
         if (duration >= 500) {  // 3000 milliseconds = 3 seconds
-          console.log('Entering edit mode');
-          router.push('/editmode');
+          if (isEditMode == "true") {
+            console.log('Exiting edit mode');
+            router.push('/');
+          } else {
+            console.log('Entering edit mode');
+            router.push('/editmode');
+          }
         }
       }
     };

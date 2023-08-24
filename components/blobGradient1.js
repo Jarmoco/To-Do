@@ -1,4 +1,4 @@
-export default function Blob1({posY}) {
+export default function Blob1({ posX, posY, size}) {
     return (
         <>
             <div>
@@ -23,6 +23,34 @@ export default function Blob1({posY}) {
                 top: ${posY};
                 left: 28%;
                 filter: blur(50px)
+            }
+            
+            div {
+                display: block;
+                width: ${size};
+                height: ${size};
+                position: absolute;
+                top: ${posY};
+                left: ${posX};
+                animation: glowing;
+                animation-duration: 3s;
+                animation-iteration-count: infinite;
+                animation-timing-function: ease-in-out;
+                animation-direction: alternate;
+            }
+
+            @keyframes glowing {
+                0% {
+                    filter: blur(50px) brightness(0.8);
+                }
+            
+                50% {
+                    filter: blur(50px) brightness(1);
+                }
+            
+                100% {
+                    filter: blur(50px) brightness(1.1);
+                }
             }
                 `}
             </style>

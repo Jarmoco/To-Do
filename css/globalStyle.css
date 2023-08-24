@@ -110,7 +110,13 @@ html::-webkit-scrollbar {
     cursor: pointer;
 }
 
+.saveIcon {
+    height: 3vh;
+    width: auto;
+}
+
 @keyframes fadeIn {
     0% { opacity: 0; }
     100% { opacity: 1; }
 }
+

@@ -56,3 +56,21 @@ pub fn update(id: i32, status: bool, database_url: &str) {
 
     println!("Updated rows: {}", updated_row);
 }
+
+pub fn edit(id: i32, title: &str, description: &str, database_url: &str) {
+    let mut connection = data_establish_connection(database_url);
+    
+    println!("Updating task, id: {}, new title: {}, new description: {}", id, title, description);
+
+    // Update a row
+    let updated_row = diesel::update(tasks::table)
+        .filter(tasks::id.eq(id)) // Update condition
+        .set((
+            tasks::title.eq(title.to_string()),
+            tasks::content.eq(Some(description.to_string())),
+        ))
+        .execute(&mut connection)
+        .expect("Error updating row");
+
+    println!("Updated rows: {}", updated_row);
+}
