@@ -19,8 +19,9 @@ import SettingsContainer from "@/components/settings";
 import dynamic from 'next/dynamic';
 import useTranslation from "@/intl/translate";
 import CtrlPressDetector from "@/components/ctrlpress";
-
-
+import FirstRunPopUp from "@/components/firstrunpopup";
+import { useEffect, useState } from "react";
+import { invoke } from "@tauri-apps/api/tauri";
 //------------------------------------------//
 export default function Page() {
     const { t } = useTranslation()
@@ -29,10 +30,23 @@ export default function Page() {
         ssr: false,
     });
 
+    const [showPopup, setShowPopup] = useState('null');
+
+    useEffect(() => {
+        invoke('get_isfirstrun')
+            .then(result => {
+                setShowPopup(result)
+            })
+            .catch(error => {
+                // Handle any errors that occurred during the API call
+                console.error('Error checking first run:', error);
+            });
+    })
 
     return (
         <div className={style.sectionsContainer}>
             <DynamicCustomTitleBar />
+            {showPopup && <FirstRunPopUp></FirstRunPopUp>}
             <MainSection title={t("welcome")} />
             <SettingsSection title={t("settings")} />
         </div>
@@ -44,10 +58,10 @@ function MainSection({ title }) {
 
     return (
         <div className={style.section}>
-            <Blob1 posX="22%" posY="15%" size="20vw"/>
+            <Blob1 posX="22%" posY="15%" size="20vw" />
             <Blob color="#6E3BDB" posX="50vw" posY="47%" size="20vw" />
             <Title title={title} />
-            <TaskContainer editmode="false"/>
+            <TaskContainer editmode="false" />
             <div className={style.sectionButtonOutline}>
                 <button className={clsx(style.sectionButton, textFont.className)}>
                     <Link href="newTask" className={clsx(style.link, textFont.className)}>{t("newtaskbuttonlabel")}</Link>
@@ -55,7 +69,7 @@ function MainSection({ title }) {
             </div>
 
             <DownArrow></DownArrow>
-            <CtrlPressDetector isEditMode="false"/>
+            <CtrlPressDetector isEditMode="false" />
         </div>
     )
 }

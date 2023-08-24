@@ -159,7 +159,7 @@ function EditableTask({ title, description, author, id }) {
 
 
     return (
-        <div className={style.task}>
+        <div className={clsx(style.task, style.editableTask)}>
 
             <TextInput id="title" value={inputTitle} onChange={handleTitleChange} width="20"></TextInput>
             <TextInput id="description" value={inputDescription} onChange={handleDescChange} width="20"></TextInput>

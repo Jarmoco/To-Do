@@ -29,6 +29,7 @@ pub struct NewSetting {
     pub data_database_url: Option<String>,
     pub username: String,
     pub language: String,
+    pub firstrun: bool,
 }
 
 #[derive(Queryable, Debug, AsChangeset)]
@@ -37,6 +38,7 @@ pub struct Setting {
     pub data_database_url: Option<String>,
     pub username: String,
     pub language: String,
+    pub firstrun: bool,
 }
 
 //to convert task into string
@@ -85,8 +87,8 @@ impl fmt::Display for Setting {
 
         write!(
             f,
-            "Setting: id={}, data_database_url={}, username={}, language={}",
-            self.id, database_url_str, self.username, self.language
+            "Setting: id={}, data_database_url={}, username={}, language={}, firstrun={}",
+            self.id, database_url_str, self.username, self.language, self.firstrun
         )
     }
 }

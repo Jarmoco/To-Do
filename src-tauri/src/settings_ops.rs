@@ -42,6 +42,9 @@ pub fn check_settings() {
             init_settings().expect("Error while creating settings table");
         } else {
             println!("Table {} exists", table_name);
+            // if this code runs, it means that this is not the first run, so we can set firstrun to false
+            update_settings("_".to_string(), Some("_".to_string()), "_".to_string(), false);
+
         }
 
     } else {
@@ -53,7 +56,7 @@ pub fn check_settings() {
     }
 }
 
-pub fn update_settings(mut u: String, mut durl: Option<String>, mut lang: String) {
+pub fn update_settings(mut u: String, mut durl: Option<String>, mut lang: String, firstrun_value: bool) {
     //println!("settings update request received");
     let mut connection = settings_establish_connection();
     let query = diesel::update(settings.find(1));
@@ -95,13 +98,21 @@ pub fn update_settings(mut u: String, mut durl: Option<String>, mut lang: String
             data_database_url: durl,
             username: u,
             language: lang,
+            firstrun: false,
         };
 
         query
             .set(&updated_settings)
             .execute(&mut connection)
             .expect("Error while updating settings");
+    } else if firstrun_value == false {
+        // update first run
+        query
+        .set(firstrun.eq(firstrun_value))
+        .execute(&mut connection)
+        .expect("Error while updating settings"); 
     }
+
 }
 
 pub fn init_settings() -> Result<usize, Error> {
@@ -114,6 +125,7 @@ pub fn init_settings() -> Result<usize, Error> {
         data_database_url: durl,
         username: u,
         language: lang,
+        firstrun: true,
     };
 
     diesel::insert_into(settings)

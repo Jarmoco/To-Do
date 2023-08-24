@@ -233,3 +233,9 @@
     cursor: pointer;
     border: none;
 }
+
+.editableTask:hover {
+    background-color: #251935;
+    border-radius: 1vw;
+    transition: background-color 0.5s;
+}
