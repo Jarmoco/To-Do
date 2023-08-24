@@ -1,12 +1,10 @@
 html,
 body {
-    background: radial-gradient(circle at center, #1A0732 0, black 100%);
     background-repeat: no-repeat;
     color: white;
     width: 100%;
     margin: 0;
     padding: 0;
-    border-radius: 10px; /* whatever you want */
 }
 
 
@@ -17,6 +15,7 @@ html {
     overflow-y: scroll;
     overscroll-behavior-y: none;
     overscroll-behavior-x: none;
+    background: radial-gradient(circle at center, #1A0732 0, black 100%);
 }
 
 body {
@@ -45,6 +44,7 @@ html::-webkit-scrollbar {
     top: 0;
     left: 0;
     right: 0;
+    z-index: 99999;
 }
 
 .titlebar-button {
@@ -58,9 +58,9 @@ html::-webkit-scrollbar {
     outline: none;
     border: none;
     margin-right: 1.5vw;
-    border-radius: 5px;
+    border-radius: 0.5vw;
     margin-top: 0.3vh;
-
+    animation: fadeIn 1s;
 }
 
 .titlebar-button svg {
@@ -102,5 +102,28 @@ html::-webkit-scrollbar {
 .userIcon {
     height: 2vh;
     width: auto;
+}
+
+.dragHandle {
+    height: 2vh;
+    width: auto;
+    margin-right: 1vw;
+    cursor: pointer;
+}
+
+.saveIcon {
+    height: 3vh;
+    width: auto;
+}
+
+.trashBinIcon {
+    height: 3vh;
+    width: auto;
+    cursor: pointer;
+}
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
 }
 

@@ -10,8 +10,12 @@ import { invoke } from "@tauri-apps/api/tauri"
 
 import UserIcon from "./userIcon";
 import useTranslation from "@/intl/translate";
+import TextInput from "@/components/textInput";
+import SaveIcon from "./saveIcon";
+import { useRouter } from 'next/router';
+import TrashBinIcon from "./trashBinIcon";
 
-export default function TaskContainer() {
+export default function TaskContainer({ editmode }) {
     const [resultArray, setResultArray] = useState([]);
     let dbUrl;
 
@@ -74,17 +78,30 @@ export default function TaskContainer() {
                 return result;
             }, {});
 
-            //console.log(keyValueObject);
+            if (editmode != "true") {
+                tasks.push(<Task key={i} title={keyValueObject.title} description={keyValueObject.content} id={keyValueObject.id} isDone={JSON.parse(keyValueObject.is_done)} author={keyValueObject.author} />)
+            } else {
+                tasks.push(<EditableTask key={i} title={keyValueObject.title} description={keyValueObject.content} id={keyValueObject.id} isDone={JSON.parse(keyValueObject.is_done)} author={keyValueObject.author} />)
+            }
 
-            tasks.push(<Task key={i} title={keyValueObject.title} description={keyValueObject.content} id={keyValueObject.id} isDone={JSON.parse(keyValueObject.is_done)} author={keyValueObject.author}/>)
+
+
         }
         return tasks
     }
 
     return (
-        <div className={style.taskContainer}>
-            {renderTasks()}
-        </div>
+        <>
+            {editmode ? (
+                <div className={style.taskContainerEdit}>
+                    {renderTasks()}
+                </div>
+            ) : (
+                <div className={style.taskContainer}>
+                    {renderTasks()}
+                </div>
+            )}
+        </>
     )
 }
 
@@ -102,14 +119,80 @@ function Task({ title, description, id, isDone, author }) {
     )
 }
 
+function EditableTask({ title, description, author, id }) {
+    const router = useRouter();
+
+    const [inputTitle, setInputTitle] = useState(title)
+    const [inputDescription, setInputDescription] = useState(description)
+
+    const handleTitleChange = (event) => {
+        setInputTitle(event.target.value);
+    };
+
+    const handleDescChange = (event) => {
+        setInputDescription(event.target.value);
+    };
+
+    function save_edit() {
+        invoke('get_db_url').then(result => {
+            invoke('edit_task', {
+                id: id,
+                title: inputTitle,
+                description: inputDescription,
+                dbUrl: result
+            }
+            )
+            router.push('/');
+        })
+    }
+
+    function delete_task_function() {
+        invoke('get_db_url').then(result => {
+            invoke('delete_task', {
+                id: id,
+                dbUrl: result
+            }
+            )
+            router.push('/');
+        })
+    }
+
+
+    return (
+        <div className={clsx(style.task, style.editableTask)}>
+
+            <TextInput id="title" value={inputTitle} onChange={handleTitleChange} width="20"></TextInput>
+            <TextInput id="description" value={inputDescription} onChange={handleDescChange} width="20"></TextInput>
+
+            {title + description !== inputTitle + inputDescription ?
+                <button onClick={save_edit} className={style.saveEditButton}>
+                    <SaveIcon></SaveIcon>
+                </button> : null
+            }
+
+            <div className={style.authorContainer}>
+                <UserIcon className={style.userIcon}></UserIcon>
+                <h4 className={clsx(style.taskAuthorEdit, textFont.className)}>{author}</h4>
+            </div>
+
+            <button onClick={delete_task_function} className={style.deleteTaskButton}>
+                <TrashBinIcon ></TrashBinIcon>
+            </button>
+            
+        </div>
+    )
+}
+
 // Custom checkbox component
 function CheckBox({ task_id, is_done }) {
+
     const [isChecked, setIsChecked] = useState(is_done);
+
     let dbUrl;
 
     useEffect(() => {
         invoke('get_db_url').then(result => {
-            dbUrl=result
+            dbUrl = result
             // This code will be executed whenever the checkbox state (isChecked) changes
             if (isChecked) {
                 //console.log('Checkbox is checked');
@@ -125,6 +208,9 @@ function CheckBox({ task_id, is_done }) {
 
     const handleCheckboxChange = () => {
         setIsChecked(!isChecked); // Toggle the checkbox state
+        if (isChecked == false) {
+            new Audio("res/check.mp3").play()
+        }
     };
 
     return (

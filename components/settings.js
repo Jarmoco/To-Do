@@ -14,12 +14,8 @@ export default function SettingsContainer() {
     const [dataFetched, setDataFetched] = useState(false);
     let dbUrl;
     let username;
-    let language;
 
     const { locale, setLocale } = useLanguage();
-    const changeDefaultLocale = (newLocale) => {
-        setLocale(newLocale);
-      };
 
     //Fetch settings from the database
     useEffect(() => {
@@ -52,9 +48,7 @@ export default function SettingsContainer() {
         const dataObject = Object.fromEntries(keyValuePairs);
         dbUrl = dataObject.data_database_url;
         username = dataObject.username;
-        language = dataObject.language;
-
-        changeDefaultLocale(language)
+        setLocale(dataObject.language)
     }
 
     //Save settings to database
@@ -69,7 +63,7 @@ export default function SettingsContainer() {
         <div className={style.SettingsContainer}>
             {dataFetched && <DatabaseURLSetting databaseUrl={dbUrl} saveFunction={saveFunction}></DatabaseURLSetting>}
             {dataFetched && <UsernameSetting username={username} saveFunction={saveFunction}></UsernameSetting>}
-            {dataFetched && <LanguageSetting language={language} saveFunction={saveFunction}></LanguageSetting>}
+            {dataFetched && <LanguageSetting language={locale} saveFunction={saveFunction}></LanguageSetting>}
         </div>
     )
 }
@@ -86,7 +80,7 @@ function DatabaseURLSetting({ databaseUrl, saveFunction }) {
         <div className={clsx(style.genericSetting, style.DatabaseURLSetting, textFont.className)}>
             <h3 className={style.genericSettingTitle}>{t("databaseURL")}</h3>
             <div className={style.inputFieldContainer}>
-                <TextInput id="title" placeHolder={t("urlplaceholder")} value={inputDbUrl} onChange={handleInputChange} width="20"></TextInput>
+                <TextInput id="title" placeHolder={t("urlplaceholder")} value={inputDbUrl} onChange={handleInputChange} width="18"></TextInput>
                 <SaveButton onClick={saveFunction} dbUrl={inputDbUrl} username={"_"} language={"_"}></SaveButton>
             </div>
         </div>
