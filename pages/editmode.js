@@ -11,6 +11,7 @@ import { textFont } from "@/components/fonts"
 import SettingsContainer from "@/components/settings";
 import CtrlPressDetector from "@/components/ctrlpress";
 
+
 // CLSX enables the use of multiple classes, just like in normal html
 import clsx from 'clsx';
 //------------------------------------------//
@@ -37,9 +38,9 @@ function MainSection({ title }) {
     return (
         <div className={style.sectionEdit}>
             <Title title={title} />
-            <TaskContainer editmode="true"/>
+            <TaskContainer editmode="true" />
             <p className={clsx(textFont.className, style.pressCTRL)}>{t("pressCTRL")}</p>
-            <CtrlPressDetector isEditMode="true"/>
+            <CtrlPressDetector isEditMode="true" />
         </div>
     )
 }
