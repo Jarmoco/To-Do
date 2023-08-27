@@ -44,12 +44,14 @@ export default function Page() {
     })
 
     return (
-        <div className={style.sectionsContainer}>
-            <DynamicCustomTitleBar />
+        <>
             {showPopup && <FirstRunPopUp></FirstRunPopUp>}
-            <MainSection title={t("welcome")} />
-            <SettingsSection title={t("settings")} />
-        </div>
+            <DynamicCustomTitleBar />
+            <div className={style.sectionsContainer}>
+                <MainSection title={t("welcome")} />
+                <SettingsSection title={t("settings")} />
+            </div>
+        </>
     )
 }
 

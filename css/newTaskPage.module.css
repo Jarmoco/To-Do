@@ -20,12 +20,24 @@
     background-color: rgba(24, 14, 37, 0.97);
     border-radius: 2vw;
     box-shadow: 2px -10px 48px 9px rgba(59, 45, 79, 0.7) inset;
+    -webkit-animation: jump 1s cubic-bezier(0.02, 1.24, 1, 1.18);
+    animation: jump 1s cubic-bezier(0.02, 1.24, 1, 1.18);
 
 }
 
 .newTaskPanel textarea,
 .newTaskPanel input {
     margin-top: 2vh;
+}
+
+.newTaskPanel textarea {
+    -webkit-animation: pop 1s cubic-bezier(0.02, 1.24, 1, 1.18);
+    animation: pop 1s cubic-bezier(0.02, 1.24, 1, 1.18);
+}
+
+.newTaskPanel input {
+    -webkit-animation: pop 1.5s cubic-bezier(0.02, 1.24, 1, 1.18);
+    animation: pop 1.5s cubic-bezier(0.02, 1.24, 1, 1.18);
 }
 
 .newTaskPanelTitle {
@@ -37,6 +49,8 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    -webkit-animation: pop 0.5s cubic-bezier(0.02, 1.24, 1, 1.18);
+    animation: pop 0.5s cubic-bezier(0.02, 1.24, 1, 1.18);
 }
 
 .buttonsContainer {
@@ -82,4 +96,39 @@
     border: none;
     border-top: 2px solid rgb(141, 255, 183);
     box-shadow: 0 -5px 100px 0 rgba(4, 255, 0, 0.5);
+}
+
+
+@-webkit-keyframes jump {
+    0% {
+        transform: translateY(50px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@keyframes jump {
+    0% {
+        transform: translateY(100px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(0.9);
+    }
+
+    80% {
+        transform: scale(1.03);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }

@@ -30,14 +30,16 @@ export default function FirstRunPopUp() {
                 <h2>{t("editmode")}</h2>
                 <p>{t("editmodedesc")}</p>
 
+
+
                 <span className={style.separator}></span>
 
                 <div className={style.buttonsContainer}>
+                    <p className={style.restartAppTip}>Close and re-open the app if this popup keeps appearing</p>
                     <div className={style.closeButtonOutline}>
                         <button className={style.closeButton} onClick={handleRemoveClick}>{t("close")}</button>
                     </div>
                 </div>
-                <p>Close and re-open the app if this popup keeps appearing</p>
             </div>
         </div>
 

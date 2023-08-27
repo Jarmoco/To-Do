@@ -26,6 +26,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     margin-bottom: 10%;
+    z-index: 5000;
 }
 
 .textInput {

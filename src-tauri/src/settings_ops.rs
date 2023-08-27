@@ -44,7 +44,6 @@ pub fn check_settings() {
             println!("Table {} exists", table_name);
             // if this code runs, it means that this is not the first run, so we can set firstrun to false
             update_settings("_".to_string(), Some("_".to_string()), "_".to_string(), false);
-
         }
 
     } else {
@@ -61,7 +60,7 @@ pub fn update_settings(mut u: String, mut durl: Option<String>, mut lang: String
     let mut connection = settings_establish_connection();
     let query = diesel::update(settings.find(1));
 
-    println!("Updating settings, username: {}, data database url: {:?}, language: {}", u, durl, lang);
+    println!("Updating settings, username: {}, data database url: {:?}, language: {}, firstrun: {}", u, durl, lang, firstrun_value);
     //What to do if values are empty
     if durl == Some("".to_string()) {
         durl = Some("data.db".to_string());

@@ -45,6 +45,7 @@ html::-webkit-scrollbar {
     left: 0;
     right: 0;
     z-index: 99999;
+    margin-right: 1vw;
 }
 
 .titlebar-button {
@@ -57,7 +58,7 @@ html::-webkit-scrollbar {
     color: #fffbfe;
     outline: none;
     border: none;
-    margin-right: 1.5vw;
+    margin-left: 1.5vw;
     border-radius: 0.5vw;
     margin-top: 0.3vh;
     animation: fadeIn 1s;
