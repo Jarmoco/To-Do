@@ -15,7 +15,7 @@ import SaveIcon from "./saveIcon";
 import { useRouter } from 'next/router';
 import TrashBinIcon from "./trashBinIcon";
 
-export default function TaskContainer({ editmode }) {
+export default function TaskContainer({ editmode, day }) {
     const [resultArray, setResultArray] = useState([]);
     let dbUrl;
 
@@ -26,7 +26,7 @@ export default function TaskContainer({ editmode }) {
             invoke('fetch_tasks', {
                 year: new Date().getFullYear(),
                 month: (new Date().getMonth()) + 1,
-                day: new Date().getDate() + 1,
+                day: day,
                 dbUrl: dbUrl,
             })
                 .then(result => {

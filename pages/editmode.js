@@ -34,11 +34,12 @@ export default function Page() {
 
 function MainSection({ title }) {
     const { t } = useTranslation()
+    let day = new Date().getDate() + 1
 
     return (
         <div className={style.sectionEdit}>
             <Title title={title} />
-            <TaskContainer editmode="true" />
+            <TaskContainer editmode="true" day={day}/>
             <p className={clsx(textFont.className, style.pressCTRL)}>{t("pressCTRL")}</p>
             <CtrlPressDetector isEditMode="true" />
         </div>
