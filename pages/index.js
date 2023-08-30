@@ -22,6 +22,8 @@ import CtrlPressDetector from "@/components/ctrlpress";
 import FirstRunPopUp from "@/components/firstrunpopup";
 import { useEffect, useState } from "react";
 import { invoke } from "@tauri-apps/api/tauri";
+import ScrollableCalendar from "@/components/calendar";
+
 //------------------------------------------//
 export default function Page() {
     const { t } = useTranslation()
@@ -30,7 +32,7 @@ export default function Page() {
         ssr: false,
     });
 
-    const [showPopup, setShowPopup] = useState('null');
+    const [showPopup, setShowPopup] = useState(false);
 
     useEffect(() => {
         invoke('get_isfirstrun')
@@ -49,6 +51,7 @@ export default function Page() {
             <DynamicCustomTitleBar />
             <div className={style.sectionsContainer}>
                 <MainSection title={t("welcome")} />
+                <CalendarSection title={t("calendar")} />
                 <SettingsSection title={t("settings")} />
             </div>
         </>
@@ -57,13 +60,14 @@ export default function Page() {
 
 function MainSection({ title }) {
     const { t } = useTranslation()
+    let day = new Date().getDate() + 1
 
     return (
         <div className={style.section}>
             <Blob1 posX="22%" posY="15%" size="20vw" />
             <Blob color="#6E3BDB" posX="50vw" posY="47%" size="20vw" />
             <Title title={title} />
-            <TaskContainer editmode="false" />
+            <TaskContainer editmode="false" day={day} readOnly="false"/>
             <div className={style.sectionButtonOutline}>
                 <button className={clsx(style.sectionButton, textFont.className)}>
                     <Link href="newTask" className={clsx(style.link, textFont.className)}>{t("newtaskbuttonlabel")}</Link>
@@ -79,10 +83,22 @@ function MainSection({ title }) {
 function SettingsSection({ title }) {
     return (
         <div className={style.section}>
-            <Blob1 posX="22%" posY="95%" size="20vw" />
-            <Blob color="#6E3BDB" posX="50vw" posY="140%" size="20vw" />
+            <Blob1 posX="22%" posY="155%" size="20vw" />
+            <Blob color="#6E3BDB" posX="50vw" posY="230%" size="20vw" />
             <Title title={title} />
             <SettingsContainer />
+        </div>
+    )
+}
+
+function CalendarSection({title}) {
+    return(
+        <div className={clsx(style.section, style.CalendarSection)}>
+            <Blob color="#18ed47" posX="50vw" posY="145%" size="20vw" />
+            <Blob color="#4c77a2" posX="35vw" posY="150%" size="25vw" />
+            <Blob color="#6E3BDB" posX="27vw" posY="160%" size="20vw" />
+            <Title title={title} />
+            <ScrollableCalendar />
         </div>
     )
 }

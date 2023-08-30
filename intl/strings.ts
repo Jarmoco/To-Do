@@ -37,6 +37,8 @@ export const LangStrings = {
     editmode: "Edit mode",
     editmodedesc: "Long-press CTRL to activate it, from here you can edit and delete tasks",
     close: "Close",
+    whatsnext: "What's next",
+    calendar: "Calendar",
   },
   it: {
     welcome: "Benvenuto",
@@ -76,5 +78,7 @@ export const LangStrings = {
     editmode: "Modalità modifica",
     editmodedesc: "Tieni premuto CTRL per attivarla, da qui potrai modificare o eliminare i compiti assegnati",
     close: "Chiudi",
+    whatsnext: "Più avanti",
+    calendar: "Calendario",
   },
 }

@@ -21,6 +21,9 @@
     height: 100vh;
 }
 
+.CalendarSection {
+    overflow-x: hidden;
+}
 
 .sectionTitle {
     font-size: 5vh;
