@@ -14,8 +14,9 @@ export default function SettingsContainer() {
     const [dataFetched, setDataFetched] = useState(false);
     let dbUrl;
     let username;
+    let lang;
 
-    const { locale, setLocale } = useLanguage();
+    const { setLocale } = useLanguage();
 
     //Fetch settings from the database
     useEffect(() => {
@@ -48,7 +49,8 @@ export default function SettingsContainer() {
         const dataObject = Object.fromEntries(keyValuePairs);
         dbUrl = dataObject.data_database_url;
         username = dataObject.username;
-        setLocale(dataObject.language)
+        lang = dataObject.language;
+        setLocale(lang);
     }
 
     //Save settings to database
@@ -58,12 +60,12 @@ export default function SettingsContainer() {
         invoke('save_settings', { dbUrl: d_url, username: u_name, language: language })
         Router.reload();
     }
-
+    
     return (
         <div className={style.SettingsContainer}>
             {dataFetched && <DatabaseURLSetting databaseUrl={dbUrl} saveFunction={saveFunction}></DatabaseURLSetting>}
             {dataFetched && <UsernameSetting username={username} saveFunction={saveFunction}></UsernameSetting>}
-            {dataFetched && <LanguageSetting language={locale} saveFunction={saveFunction}></LanguageSetting>}
+            {dataFetched && <LanguageSetting language={lang} saveFunction={saveFunction}></LanguageSetting>}
         </div>
     )
 }

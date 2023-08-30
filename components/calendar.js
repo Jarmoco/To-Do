@@ -28,13 +28,18 @@ export default function ScrollableCalendar() {
     }
 
     function handleScroll(event) {
-        const focus = Math.floor((event.currentTarget.scrollTop / vwToPx(15)) + 4);
+        const focus = Math.floor((event.currentTarget.scrollTop / vwToPx(15)) + 1);
         setFocusedDay(focus);
     };
 
     return (
         <div className={style.calendarContainer}>
+            <Fade side="left"/>
+            <Fade side="right"/>
             <div className={style.scrollableCalendar} ref={containerRef} onScroll={handleScroll}>
+                <GhostElement/>
+                <GhostElement/>
+                <GhostElement/>
                 {days.map((number, index) => (
                     <div
                         key={index}
@@ -50,6 +55,9 @@ export default function ScrollableCalendar() {
                         <Day number={number} />
                     </div>
                 ))}
+                <GhostElement/>
+                <GhostElement/>
+                <GhostElement/>
             </div>
             <TaskContainer editmode="false" day={focusedDay} readOnly="true"></TaskContainer>
         </div>
@@ -63,4 +71,28 @@ function Day({ number }) {
             {number}
         </div>
     )
+}
+
+function GhostElement() {
+    return (
+        <div className={clsx(style.dayOutline)}>
+        </div>
+    )
+}
+
+function Fade({side}) {
+    if (side == "left") {
+        return(
+            <div className={style.calendarFadeLeft}>
+    
+            </div>
+        )
+    } else if (side == "right") {
+        return(
+            <div className={style.calendarFadeRight}>
+    
+            </div>
+        )   
+    }
+
 }

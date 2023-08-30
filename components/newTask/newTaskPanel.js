@@ -5,7 +5,6 @@ import TextInput from "@/components/textInput";
 import { TextArea } from "@/components/textInput";
 import Blob3 from "./blobGradient3";
 import { DayInput, MonthInput, YearInput } from "./dateInput";
-// Allows to navigate between pages
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 
@@ -64,7 +63,7 @@ export default function NewTaskPanel() {
         console.log('Selected Day:', selectedDay);
         console.log('Selected Month:', selectedMonth);
         console.log('Selected Year:', selectedYear);
-        // Perform further actions with the input value
+
         setConfirmClicked(true)
     };
 
@@ -76,7 +75,6 @@ export default function NewTaskPanel() {
             // Update the state with the result array
             setSettingsArray(result)
         }).catch(error => {
-            // Handle any errors that occurred during the API call
             console.error('Error fetching settings:', error);
         });
 

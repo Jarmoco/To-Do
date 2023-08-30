@@ -18,5 +18,5 @@ export const LanguageProvider = ({ children }) => {
 // A custom hook to get the locale and setLocale function
 export const useLanguage = () => {
   const [locale, setLocale] = useContext(LanguageContext);
-  return { locale, setLocale };
+  return { setLocale };
 };

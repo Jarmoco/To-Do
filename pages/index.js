@@ -32,7 +32,7 @@ export default function Page() {
         ssr: false,
     });
 
-    const [showPopup, setShowPopup] = useState('null');
+    const [showPopup, setShowPopup] = useState(false);
 
     useEffect(() => {
         invoke('get_isfirstrun')
@@ -51,7 +51,7 @@ export default function Page() {
             <DynamicCustomTitleBar />
             <div className={style.sectionsContainer}>
                 <MainSection title={t("welcome")} />
-                <CalendarSection title={t("whatsnext")} />
+                <CalendarSection title={t("calendar")} />
                 <SettingsSection title={t("settings")} />
             </div>
         </>
@@ -94,6 +94,9 @@ function SettingsSection({ title }) {
 function CalendarSection({title}) {
     return(
         <div className={clsx(style.section, style.CalendarSection)}>
+            <Blob color="#18ed47" posX="50vw" posY="145%" size="20vw" />
+            <Blob color="#4c77a2" posX="35vw" posY="150%" size="25vw" />
+            <Blob color="#6E3BDB" posX="27vw" posY="160%" size="20vw" />
             <Title title={title} />
             <ScrollableCalendar />
         </div>
