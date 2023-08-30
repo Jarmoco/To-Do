@@ -15,7 +15,7 @@ import SaveIcon from "./saveIcon";
 import { useRouter } from 'next/router';
 import TrashBinIcon from "./trashBinIcon";
 
-export default function TaskContainer({ editmode, day }) {
+export default function TaskContainer({ editmode, day, readOnly }) {
     const [resultArray, setResultArray] = useState([]);
     let dbUrl;
 
@@ -38,12 +38,7 @@ export default function TaskContainer({ editmode, day }) {
                     console.error('Error fetching tasks:', error);
                 });
         })
-
-
-
-
-    }, [])
-
+    }, [day])
 
 
     function renderTasks() {
@@ -79,36 +74,39 @@ export default function TaskContainer({ editmode, day }) {
             }, {});
 
             if (editmode != "true") {
-                tasks.push(<Task key={i} title={keyValueObject.title} description={keyValueObject.content} id={keyValueObject.id} isDone={JSON.parse(keyValueObject.is_done)} author={keyValueObject.author} />)
+                tasks.push(<Task key={i} title={keyValueObject.title} description={keyValueObject.content} id={keyValueObject.id} isDone={JSON.parse(keyValueObject.is_done)} author={keyValueObject.author} showCheckbox={readOnly} />)
             } else {
                 tasks.push(<EditableTask key={i} title={keyValueObject.title} description={keyValueObject.content} id={keyValueObject.id} isDone={JSON.parse(keyValueObject.is_done)} author={keyValueObject.author} />)
             }
-
-
-
         }
         return tasks
     }
 
     return (
         <>
-            {editmode ? (
-                <div className={style.taskContainerEdit}>
+            {readOnly == "true" ? (
+                <div className={style.readOnlyTaskContainer}>
                     {renderTasks()}
                 </div>
             ) : (
-                <div className={style.taskContainer}>
-                    {renderTasks()}
-                </div>
+                editmode == "true" ? (
+                    <div className={style.taskContainerEdit}>
+                        {renderTasks()}
+                    </div>
+                ) : (
+                    <div className={style.taskContainer}>
+                        {renderTasks()}
+                    </div>
+                )
             )}
         </>
     )
 }
 
-function Task({ title, description, id, isDone, author }) {
+function Task({ title, description, id, isDone, author, showCheckbox }) {
     return (
         <div className={style.task}>
-            <CheckBox task_id={id} is_done={isDone} />
+            {showCheckbox == "false" && <CheckBox task_id={id} is_done={isDone} />}
             <h2 className={clsx(style.taskTitle, textFont.className)}>{title}</h2>
             <h3 className={clsx(style.taskDescription, textFont.className)}>{description}</h3>
             <div className={style.authorContainer}>
@@ -178,7 +176,7 @@ function EditableTask({ title, description, author, id }) {
             <button onClick={delete_task_function} className={style.deleteTaskButton}>
                 <TrashBinIcon ></TrashBinIcon>
             </button>
-            
+
         </div>
     )
 }

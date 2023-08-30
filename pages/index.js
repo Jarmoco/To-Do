@@ -67,7 +67,7 @@ function MainSection({ title }) {
             <Blob1 posX="22%" posY="15%" size="20vw" />
             <Blob color="#6E3BDB" posX="50vw" posY="47%" size="20vw" />
             <Title title={title} />
-            <TaskContainer editmode="false" day={day}/>
+            <TaskContainer editmode="false" day={day} readOnly="false"/>
             <div className={style.sectionButtonOutline}>
                 <button className={clsx(style.sectionButton, textFont.className)}>
                     <Link href="newTask" className={clsx(style.link, textFont.className)}>{t("newtaskbuttonlabel")}</Link>
@@ -83,8 +83,8 @@ function MainSection({ title }) {
 function SettingsSection({ title }) {
     return (
         <div className={style.section}>
-            <Blob1 posX="22%" posY="165%" size="20vw" />
-            <Blob color="#6E3BDB" posX="50vw" posY="240%" size="20vw" />
+            <Blob1 posX="22%" posY="155%" size="20vw" />
+            <Blob color="#6E3BDB" posX="50vw" posY="230%" size="20vw" />
             <Title title={title} />
             <SettingsContainer />
         </div>
