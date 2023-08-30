@@ -28,9 +28,21 @@ export default function ScrollableCalendar() {
     }
 
     function handleScroll(event) {
-        const focus = Math.floor((event.currentTarget.scrollTop / vwToPx(15)) + 1);
+        const focus = Math.floor((event.currentTarget.scrollTop / vwToPx(15.3)) + 1);
         setFocusedDay(focus);
     };
+
+
+
+
+    useEffect(() => {
+        function setDefaultDay() {
+            let day = new Date().getDate();
+            containerRef.current.scrollTop = (day) * vwToPx(16);
+        }
+
+        setDefaultDay();
+    }, []);
 
     return (
         <div className={style.calendarContainer}>
