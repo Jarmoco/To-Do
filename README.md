@@ -86,7 +86,7 @@
 <!-- ⚠️ Known Issues -->
 
 ### ✨ Coming Soon
-* See tasks assigned for other days
+* Multi-user support
 
 <!-- GETTING STARTED -->
 ## ✅ Getting Started
