@@ -84,6 +84,8 @@
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ⚠️ Known Issues -->
+### ⚠️ Known Issues
+* The task description is cut off after the second comma and only the first half is shown
 
 ### ✨ Coming Soon
 * Multi-user support
