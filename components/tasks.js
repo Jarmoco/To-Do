@@ -60,9 +60,8 @@ export default function TaskContainer({ editmode, day, readOnly }) {
             // key-value pair
             keyValuePairs.forEach((element, index) => {
                 if (!element.includes("=")) {
-                    //console.log(element)
-                    keyValuePairs[index - 1] = keyValuePairs[index - 1] + ", " + element
-                    keyValuePairs.splice(index, 1)
+                    keyValuePairs[index] = keyValuePairs[index - 1] + ", " + element
+                    //keyValuePairs.splice(index, 1)
                 }
             });
 

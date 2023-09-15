@@ -26,7 +26,7 @@ use window_shadows::set_shadow;
 use tauri::Manager;
 
 fn main() {
-    #[cfg(any(windows, target_os = "windows"))]
+    #[cfg(any(windows, target_os = "windows"))]  
     check_settings();
     tauri::Builder::default()
         .setup(|app| {
@@ -85,6 +85,7 @@ fn fetch_tasks(year: u16, month: u8, day: u8, db_url: &str) -> Vec<String> {
     let mut results: Vec<String> = Vec::new();
 
     match get_tasks(date_filter, db_url) {
+
         Ok(tasks) => {
             println!("Displaying {} tasks", tasks.len());
             for task in tasks {
