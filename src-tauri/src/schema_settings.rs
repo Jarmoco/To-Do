@@ -7,5 +7,6 @@ diesel::table! {
         username -> Text,
         language -> Text,
         firstrun -> Bool,
+        edit_hotkey -> Text,
     }
 }

@@ -30,6 +30,7 @@ pub struct NewSetting {
     pub username: String,
     pub language: String,
     pub firstrun: bool,
+    pub edit_hotkey: String,
 }
 
 #[derive(Queryable, Debug, AsChangeset)]
@@ -39,6 +40,7 @@ pub struct Setting {
     pub username: String,
     pub language: String,
     pub firstrun: bool,
+    pub edit_hotkey: String,
 }
 
 //to convert task into string
@@ -87,8 +89,8 @@ impl fmt::Display for Setting {
 
         write!(
             f,
-            "Setting: id={}, data_database_url={}, username={}, language={}, firstrun={}",
-            self.id, database_url_str, self.username, self.language, self.firstrun
+            "Setting: id={}, data_database_url={}, username={}, language={}, firstrun={}, edit_hotkey={}",
+            self.id, database_url_str, self.username, self.language, self.firstrun, self.edit_hotkey
         )
     }
 }

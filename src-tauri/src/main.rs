@@ -44,7 +44,8 @@ fn main() {
             edit_task,
             delete_task,
             get_db_url,
-            get_isfirstrun
+            get_isfirstrun,
+            get_edit_hotkey
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
@@ -104,16 +105,18 @@ fn fetch_tasks(year: u16, month: u8, day: u8, db_url: &str) -> Vec<String> {
 }
 
 #[tauri::command]
-fn save_settings(username: &str, db_url: &str, language: &str) {
+fn save_settings(username: &str, db_url: &str, language: &str, edit_k: &str) {
+    println!("HELLO");
     println!(
-        "saving settings, new url: {}, new username: {}, new language: {}",
-        db_url, username, language
+        "saving settings, new url: {}, new username: {}, new language: {}, new editmode hotkey: {}",
+        db_url, username, language, edit_k
     );
     update_settings(
         username.to_string(),
         Some(db_url.to_string()),
         language.to_string(),
         false,
+        edit_k.to_string(),
     );
 }
 
@@ -284,4 +287,50 @@ fn get_isfirstrun() -> bool {
     }
 
     return true;
+}
+
+#[tauri::command]
+fn get_edit_hotkey() -> String {
+    //println!("TEST ATTENZIONE");
+
+    let mut results: Vec<String> = Vec::new();
+
+    match get_settings() {
+        Ok(settings) => {
+            for setting in settings {
+                results.push(setting.to_string());
+            }
+        }
+        Err(e) => eprintln!("Error reading settings: {}", e),
+    }
+
+    let mut parsed_results: Vec<HashMap<String, String>> = Vec::new();
+
+    for setting_str in &results {
+        let key_value_pairs: Vec<&str> = setting_str.split(',').collect();
+        let mut parsed_setting: HashMap<String, String> = HashMap::new();
+
+        for pair in key_value_pairs {
+            let components: Vec<&str> = pair.trim().split('=').collect();
+            if components.len() == 2 {
+                let key = components[0].trim().to_string();
+                let value = components[1].trim().to_string();
+                parsed_setting.insert(key, value);
+            }
+        }
+
+        parsed_results.push(parsed_setting);
+    }
+
+    //println!("{:?}", parsed_results);
+
+    if let Some(parsed_setting) = parsed_results.get(0) {
+        if let Some(edit_hotkey) = parsed_setting.get("edit_hotkey") {
+            return edit_hotkey.to_string();
+        } else {
+            return "edit_hotkey not found in settings".to_string();
+        }
+    } else {
+        return "settings not found".to_string();
+    }
 }
