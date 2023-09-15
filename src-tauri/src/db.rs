@@ -1,6 +1,6 @@
 use std::fs;
 
-use diesel::sqlite::SqliteConnection;
+use diesel::mysql::MysqlConnection;
 use diesel::prelude::*;
 use diesel_migrations::{embed_migrations, EmbeddedMigrations, MigrationHarness};
 
@@ -8,20 +8,20 @@ use diesel_migrations::{embed_migrations, EmbeddedMigrations, MigrationHarness};
 pub const MIGRATIONS_DATA: EmbeddedMigrations = embed_migrations!("./migrations_data");
 pub const MIGRATIONS_SETTINGS: EmbeddedMigrations = embed_migrations!("./migrations_settings");
 
-pub fn data_establish_connection(db_url: &str) -> SqliteConnection {
+pub fn data_establish_connection(db_url: &str) -> MysqlConnection {
     // check if db folder exists, if not, create it
     check_db_folder().expect("error checking db folder");
 
     // Connecting to the database
     let database_url = ("./db/".to_owned() + db_url).to_string();
-    SqliteConnection::establish(&database_url)
+    MysqlConnection::establish(&database_url)
         .unwrap_or_else(|_| panic!("Error connecting to {}", database_url))
 }
 
-pub fn settings_establish_connection() -> SqliteConnection {
+pub fn settings_establish_connection() -> MysqlConnection {
     // Connecting to the database
     let database_url = "settings.db".to_string();
-    SqliteConnection::establish(&database_url)
+    MysqlConnection::establish(&database_url)
         .unwrap_or_else(|_| panic!("Error connecting to {}", database_url))
 }
 

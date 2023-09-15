@@ -25,7 +25,7 @@ pub fn check_settings() {
 
         let mut connection = settings_establish_connection();
         let query = format!(
-            "SELECT name FROM sqlite_master WHERE type='table' AND name='{}'",
+            "SELECT name FROM information_schema WHERE type='table' AND name='{}'",
             "settings"
         );
 
