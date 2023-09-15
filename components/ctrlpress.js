@@ -1,32 +1,45 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { invoke } from "@tauri-apps/api/tauri"
 
-const CtrlPressDetector = ({isEditMode}) => {
+const EditModePressDetector = ({ isEditMode }) => {
   const router = useRouter();
-  const [ctrlPressed, setCtrlPressed] = useState(false);
+  const [keyPressed, setKeyPressed] = useState(false);
   const [startTime, setStartTime] = useState(null);
 
   useEffect(() => {
     const handleKeyDown = (event) => {
-      if (event.key === 'Control') {
-        setCtrlPressed(true);
-        setStartTime(Date.now());
-      }
+      invoke('get_edit_hotkey')
+        .then(result => {
+          if (event.key === result) {
+            setKeyPressed(true);
+            setStartTime(Date.now());
+          }
+        })
+        .catch(error => {
+          console.error('Error getting edit mode hotkey:', error);
+        });
     };
 
     const handleKeyUp = (event) => {
-      if (event.key === 'Control') {
-        setCtrlPressed(false);
-        setStartTime(null);
-      }
+      invoke('get_edit_hotkey')
+        .then(result => {
+          if (event.key === result) {
+            setKeyPressed(false);
+            setStartTime(null);
+          }
+        })
+        .catch(error => {
+          console.error('Error getting edit mode hotkey:', error);
+        });
     };
 
-    const handleKeyPressDuration = () => {
-      if (startTime !== null && ctrlPressed !== false) {
+    const interval = setInterval(() => {
+      if (startTime !== null && keyPressed) {
         const currentTime = Date.now();
         const duration = currentTime - startTime;
-        if (duration >= 500) {  // 3000 milliseconds = 3 seconds
-          if (isEditMode == "true") {
+        if (duration >= 500) {
+          if (isEditMode === "true") {
             console.log('Exiting edit mode');
             router.push('/');
           } else {
@@ -35,9 +48,7 @@ const CtrlPressDetector = ({isEditMode}) => {
           }
         }
       }
-    };
-
-    const interval = setInterval(handleKeyPressDuration, 100); // Check every 100ms
+    }, 100);
 
     window.addEventListener('keydown', handleKeyDown);
     window.addEventListener('keyup', handleKeyUp);
@@ -47,9 +58,10 @@ const CtrlPressDetector = ({isEditMode}) => {
       window.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('keyup', handleKeyUp);
     };
-  }, [ctrlPressed, startTime]);
+  }, [keyPressed, isEditMode, router]);
 
   return null;
 };
 
-export default CtrlPressDetector;
+export default EditModePressDetector;
+

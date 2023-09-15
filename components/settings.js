@@ -2,7 +2,7 @@ import style from "@/css/settings.module.css"
 import { textFont } from "./fonts"
 import clsx from 'clsx';
 import TextInput from "@/components/textInput";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { invoke } from "@tauri-apps/api/tauri"
 import Router from "next/router";
 import useTranslation from "@/intl/translate";
@@ -15,6 +15,7 @@ export default function SettingsContainer() {
     let dbUrl;
     let username;
     let lang;
+    let editHotkey;
 
     const { setLocale } = useLanguage();
 
@@ -50,14 +51,15 @@ export default function SettingsContainer() {
         dbUrl = dataObject.data_database_url;
         username = dataObject.username;
         lang = dataObject.language;
+        editHotkey = dataObject.edit_hotkey;
         setLocale(lang);
     }
 
     //Save settings to database
-    function saveFunction(d_url, u_name, language) {
+    function saveFunction(d_url, u_name, language, e_hk) {
         console.log("saving settings")
-        console.log(d_url + "///" + u_name + "///" + language)
-        invoke('save_settings', { dbUrl: d_url, username: u_name, language: language })
+        console.log(d_url + "///" + u_name + "///" + language + "///" + e_hk)
+        invoke('save_settings', { dbUrl: d_url, username: u_name, language: language, editK: e_hk })
         Router.reload();
     }
     
@@ -66,6 +68,7 @@ export default function SettingsContainer() {
             {dataFetched && <DatabaseURLSetting databaseUrl={dbUrl} saveFunction={saveFunction}></DatabaseURLSetting>}
             {dataFetched && <UsernameSetting username={username} saveFunction={saveFunction}></UsernameSetting>}
             {dataFetched && <LanguageSetting language={lang} saveFunction={saveFunction}></LanguageSetting>}
+            {dataFetched && <EditHotkeySetting editHotkey={editHotkey} saveFunction={saveFunction}></EditHotkeySetting>}
         </div>
     )
 }
@@ -83,7 +86,7 @@ function DatabaseURLSetting({ databaseUrl, saveFunction }) {
             <h3 className={style.genericSettingTitle}>{t("databaseURL")}</h3>
             <div className={style.inputFieldContainer}>
                 <TextInput id="title" placeHolder={t("urlplaceholder")} value={inputDbUrl} onChange={handleInputChange} width="18"></TextInput>
-                <SaveButton onClick={saveFunction} dbUrl={inputDbUrl} username={"_"} language={"_"}></SaveButton>
+                <SaveButton onClick={saveFunction} dbUrl={inputDbUrl} username={"_"} language={"_"} saveHotkey={"_"}></SaveButton>
             </div>
         </div>
     )
@@ -102,7 +105,45 @@ function UsernameSetting({ username, saveFunction }) {
             <h3 className={style.genericSettingTitle}>{t("username")}</h3>
             <div className={style.inputFieldContainer}>
                 <TextInput id="title" placeHolder={t("usernameplaceholder")} value={inputUsername} onChange={handleInputChange}  width="10"></TextInput>
-                <SaveButton onClick={saveFunction} dbUrl={"_"} username={inputUsername} language={"_"}></SaveButton>
+                <SaveButton onClick={saveFunction} dbUrl={"_"} username={inputUsername} language={"_"} saveHotkey={"_"}></SaveButton>
+            </div>
+        </div>
+    )
+}
+
+function EditHotkeySetting({editHotkey, saveFunction}) {
+    const { t } = useTranslation()
+    const [inputKey, setInputKey] = useState(editHotkey)
+
+    const componentRef = useRef(null);
+
+    useEffect(() => {
+        const handleEvent = (event) => {
+            console.log(event.key)
+            setInputKey(event.key.toString());
+        };
+    
+        // Attach the event listener to the component's DOM element
+        const componentElement = componentRef.current;
+        if (componentElement) {
+          componentElement.addEventListener('keydown', handleEvent);
+        }
+    
+        // Clean up the event listener when the component unmounts
+        return () => {
+          if (componentElement) {
+            componentElement.removeEventListener('keydown', handleEvent);
+          }
+        };
+      }, []);
+
+
+    return (
+        <div className={clsx(style.genericSetting, style.UsernameSetting, textFont.className)}>
+            <h3 className={style.genericSettingTitle}>{t("editmodehotkey")}</h3>
+            <div className={style.inputFieldContainer} ref={componentRef}>
+                <TextInput id="title" placeHolder={t("edithotkeyplaceholder")} value={inputKey} width="10"></TextInput>
+                <SaveButton onClick={saveFunction} dbUrl={"_"} username={"_"} language={"_"} saveHotkey={inputKey}></SaveButton>
             </div>
         </div>
     )
@@ -125,16 +166,16 @@ function LanguageSetting({language, saveFunction}) {
                     <option value="en">{t("english")}</option>
                     <option value="it">{t("italian")}</option>
                 </select>
-                <SaveButton onClick={saveFunction} dbUrl={"_"} username={"_"} language={selectedLanguage}></SaveButton>
+                <SaveButton onClick={saveFunction} dbUrl={"_"} username={"_"} language={selectedLanguage} saveHotkey={"_"}></SaveButton>
             </div>
         </div>
     )
 }
 
-function SaveButton({ onClick, dbUrl, username, language }) {
+function SaveButton({ onClick, dbUrl, username, language, saveHotkey }) {
     const { t } = useTranslation()
     function save() {
-        onClick(dbUrl, username, language)
+        onClick(dbUrl, username, language, saveHotkey)
     }
 
     return (

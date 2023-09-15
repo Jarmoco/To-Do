@@ -18,7 +18,7 @@ import Link from 'next/link';
 import SettingsContainer from "@/components/settings";
 import dynamic from 'next/dynamic';
 import useTranslation from "@/intl/translate";
-import CtrlPressDetector from "@/components/ctrlpress";
+import EditModePressDetector from "@/components/ctrlpress";
 import FirstRunPopUp from "@/components/firstrunpopup";
 import { useEffect, useState } from "react";
 import { invoke } from "@tauri-apps/api/tauri";
@@ -75,7 +75,7 @@ function MainSection({ title }) {
             </div>
 
             <DownArrow></DownArrow>
-            <CtrlPressDetector isEditMode="false" />
+            <EditModePressDetector isEditMode="false" />
         </div>
     )
 }
