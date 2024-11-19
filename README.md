@@ -22,7 +22,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/armadio2902/To-Do">
+  <a href="https://github.com/Jarmoco/To-Do">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
@@ -32,11 +32,11 @@
     A simple, lightweight and beautiful to-do app
     <br />
     <br />
-    <a href="https://github.com/armadio2902/To-Do/issues">Report Bug</a>
+    <a href="https://github.com/Jarmoco/To-Do/issues">Report Bug</a>
     ·
-    <a href="https://github.com/armadio2902/To-Do/issues">Request Feature</a>
+    <a href="https://github.com/Jarmoco/To-Do/issues">Request Feature</a>
     ·
-    <a href="https://github.com/armadio2902/To-Do/releases">Download</a>
+    <a href="https://github.com/Jarmoco/To-Do/releases">Download</a>
   </p>
 </div>
 
@@ -72,7 +72,7 @@
 <!-- ABOUT THE PROJECT -->
 ## ❓ About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://github.com/armadio2902/To-Do)
+[![Product Name Screen Shot][product-screenshot]](https://github.com/Jarmoco/To-Do)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -133,7 +133,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 armadiopofficial@gmail.com
 
-Project Link: [https://github.com/armadio2902/To-Do](https://github.com/armadio2902/To-Do)
+Project Link: [https://github.com/Jarmoco/To-Do](https://github.com/Jarmoco/To-Do)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
